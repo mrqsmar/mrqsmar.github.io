@@ -8,29 +8,28 @@ Personal portfolio website for **Marques Mar** — Technical Product Manager spe
 
 ## Tech Stack
 
-- Vanilla HTML, CSS, and JavaScript — no frameworks or build tools
+- **React 19** with **TypeScript** — component-based UI
+- **Vite 6** — fast build tooling and HMR
+- **Tailwind CSS 3** — utility-first styling
+- **Framer Motion** — scroll-reveal and entrance animations
 - Google Fonts (Inter)
-- Intersection Observer API for scroll animations
-- CSS Grid and Flexbox for responsive layout
 - Fully mobile responsive
 
-## Design
+## Development
 
-- Dark theme with deep navy background and electric blue accents
-- Smooth scroll navigation with sticky header
-- Subtle scroll-reveal animations
-- FinTech-inspired minimal aesthetic
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`.
 
 ## Deploy
 
-This site is designed for GitHub Pages. Push to the `main` branch and enable GitHub Pages in repository settings — no build step required.
-
-## Local Development
-
-Open `index.html` in a browser, or use any static file server:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
+Pushes to `main` trigger a GitHub Actions workflow that builds and deploys to GitHub Pages automatically.
