@@ -6,15 +6,6 @@ Personal portfolio website for **Marques Mar** — Technical Product Manager spe
 
 [https://mrqsmar.github.io](https://mrqsmar.github.io)
 
-## Sections
-
-- **Hero** — Name, title, and CTA
-- **About** — Positioning as an ML/AI PM in FinTech with key metrics
-- **Experience** — Visa APM rotation timeline with impact-led bullet points
-- **Case Studies** — Service Orchestration ML Engine, Visa Banking Assistant LLM, GRS fastest launch
-- **Skills** — PM Skills, Payments Domain, Data & Analytics, AI/ML
-- **Contact** — LinkedIn, GitHub, Email
-
 ## Tech Stack
 
 - Vanilla HTML, CSS, and JavaScript — no frameworks or build tools
