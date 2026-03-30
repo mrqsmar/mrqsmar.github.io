@@ -2,9 +2,9 @@ import { motion } from 'framer-motion'
 import { useInView } from './useInView'
 
 const highlights = [
-  { value: '$1M', label: 'Weekly Revenue Recovery' },
-  { value: 'LLM', label: 'AI Assistant Shipped' },
-  { value: '24', label: 'Age as Manager' },
+  { value: '$1M', label: 'Weekly Revenue Recovery', color: 'text-emerald-400', hoverBorder: 'hover:border-emerald-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(16,185,129,0.15)]' },
+  { value: 'LLM', label: 'AI Assistant Shipped', color: 'text-violet-400', hoverBorder: 'hover:border-violet-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(139,92,246,0.15)]' },
+  { value: '24', label: 'Age as Manager', color: 'text-amber-400', hoverBorder: 'hover:border-amber-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(245,158,11,0.15)]' },
 ]
 
 export default function About() {
@@ -53,9 +53,9 @@ export default function About() {
                 initial={{ opacity: 0, y: 32 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 * i }}
-                className="flex-1 bg-navy-700 border border-navy-600 rounded-xl p-6 text-center hover:border-blue-500 hover:shadow-[0_0_24px_rgba(59,130,246,0.15)] transition-all"
+                className={`flex-1 bg-navy-700 border border-navy-600 rounded-xl p-6 text-center ${h.hoverBorder} ${h.hoverShadow} transition-all`}
               >
-                <span className="block text-[1.75rem] font-bold text-blue-400 mb-1">
+                <span className={`block text-[1.75rem] font-bold ${h.color} mb-1`}>
                   {h.value}
                 </span>
                 <span className="text-xs text-slate-500 uppercase tracking-wider">{h.label}</span>

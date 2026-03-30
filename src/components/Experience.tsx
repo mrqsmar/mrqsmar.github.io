@@ -2,6 +2,20 @@ import { motion } from 'framer-motion'
 import { useInView } from './useInView'
 import { experienceData } from '../data/experience'
 
+const accentColors = [
+  'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
+  'bg-blue-500/15 text-blue-400 border-blue-500/20',
+  'bg-violet-500/15 text-violet-400 border-violet-500/20',
+  'bg-amber-500/15 text-amber-400 border-amber-500/20',
+]
+
+const dotColors = [
+  'border-emerald-400',
+  'border-blue-400',
+  'border-violet-400',
+  'border-amber-400',
+]
+
 export default function Experience() {
   const [ref, inView] = useInView()
 
@@ -14,7 +28,7 @@ export default function Experience() {
 
         <div className="relative pl-8">
           {/* Timeline line */}
-          <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-blue-500 to-navy-600" />
+          <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-emerald-500 via-blue-500 via-violet-500 to-amber-500" />
 
           {experienceData.map((role, i) => (
             <motion.div
@@ -25,7 +39,7 @@ export default function Experience() {
               className="relative mb-12 last:mb-0"
             >
               {/* Dot */}
-              <div className="absolute -left-8 top-2 w-4 h-4 rounded-full bg-navy-800 border-[3px] border-blue-500 z-10" />
+              <div className={`absolute -left-8 top-2 w-4 h-4 rounded-full bg-navy-800 border-[3px] z-10 ${dotColors[i % dotColors.length]}`} />
 
               <div className="bg-navy-700 border border-navy-600 rounded-xl p-7 hover:border-blue-500/30 hover:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all">
                 <div className="mb-4">
@@ -46,6 +60,16 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
+                <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-navy-600">
+                  {role.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className={`text-xs font-medium px-3 py-1 rounded-full border ${accentColors[i % accentColors.length]}`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

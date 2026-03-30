@@ -13,6 +13,9 @@ const interests = [
     ),
     title: 'Car Research',
     desc: 'Deep-diving into specs, performance data, and market trends across the automotive world.',
+    accent: 'text-emerald-400',
+    bg: 'bg-emerald-500/[0.12]',
+    hover: 'hover:border-emerald-500/30 group-hover:text-emerald-300',
   },
   {
     icon: (
@@ -22,6 +25,9 @@ const interests = [
     ),
     title: 'Fashion',
     desc: 'Curating style, following trends, and appreciating the intersection of design and self-expression.',
+    accent: 'text-violet-400',
+    bg: 'bg-violet-500/[0.12]',
+    hover: 'hover:border-violet-500/30 group-hover:text-violet-300',
   },
   {
     icon: (
@@ -33,6 +39,9 @@ const interests = [
     ),
     title: 'Traveling & Points',
     desc: 'Based in Seattle. Traveled to 20 states, Japan, and South Korea — fueled by points optimization.',
+    accent: 'text-amber-400',
+    bg: 'bg-amber-500/[0.12]',
+    hover: 'hover:border-amber-500/30 group-hover:text-amber-300',
   },
 ]
 
@@ -53,9 +62,9 @@ export default function Interests() {
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 * i }}
-              className="bg-navy-700 border border-navy-600 rounded-xl p-7 text-center hover:border-blue-500/30 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] transition-all group"
+              className={`bg-navy-700 border border-navy-600 rounded-xl p-7 text-center ${item.hover} hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] transition-all group`}
             >
-              <div className="w-14 h-14 bg-blue-500/[0.12] rounded-xl flex items-center justify-center mx-auto mb-5 text-blue-400 group-hover:text-cyan-400 transition-colors">
+              <div className={`w-14 h-14 ${item.bg} rounded-xl flex items-center justify-center mx-auto mb-5 ${item.accent} transition-colors`}>
                 {item.icon}
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>

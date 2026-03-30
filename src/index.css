@@ -25,7 +25,8 @@
     display: block;
     width: 48px;
     height: 3px;
-    @apply bg-blue-500 mx-auto mt-4 rounded-full;
+    background: linear-gradient(90deg, theme('colors.blue.500'), theme('colors.violet.500'));
+    @apply mx-auto mt-4 rounded-full;
   }
 }
 

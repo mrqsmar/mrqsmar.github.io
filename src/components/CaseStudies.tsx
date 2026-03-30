@@ -8,6 +8,7 @@ interface CaseStudy {
   desc: string
   metrics: { value: string; label: string }[]
   tags: string[]
+  accent: { tag: string; metric: string; icon: string; gradient: string }
 }
 
 const cases: CaseStudy[] = [
@@ -25,6 +26,7 @@ const cases: CaseStudy[] = [
       { value: '$1M', label: 'Weekly Recovery' },
     ],
     tags: ['ML Models', 'VisaNet APIs', 'Payment Routing'],
+    accent: { tag: 'text-emerald-400', metric: 'text-emerald-400', icon: 'bg-emerald-500/[0.15] text-emerald-400', gradient: 'before:from-emerald-500 before:to-cyan-400' },
   },
   {
     icon: (
@@ -40,6 +42,7 @@ const cases: CaseStudy[] = [
       { value: 'LLM', label: 'Architecture' },
     ],
     tags: ['LLM/ChatGPT', 'Prompt Engineering', 'Enterprise AI'],
+    accent: { tag: 'text-violet-400', metric: 'text-violet-400', icon: 'bg-violet-500/[0.15] text-violet-400', gradient: 'before:from-violet-500 before:to-blue-400' },
   },
   {
     icon: (
@@ -56,6 +59,7 @@ const cases: CaseStudy[] = [
       { value: 'E2E', label: 'Ownership' },
     ],
     tags: ['Go-to-Market', 'Tableau', 'Cross-functional'],
+    accent: { tag: 'text-amber-400', metric: 'text-amber-400', icon: 'bg-amber-500/[0.15] text-amber-400', gradient: 'before:from-amber-500 before:to-orange-400' },
   },
 ]
 
@@ -76,12 +80,12 @@ export default function CaseStudies() {
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 * i }}
-              className="relative bg-navy-800 border border-navy-600 rounded-2xl p-8 overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all before:absolute before:top-0 before:inset-x-0 before:h-[3px] before:bg-gradient-to-r before:from-blue-500 before:to-cyan-400 before:opacity-0 before:transition-opacity hover:before:opacity-100"
+              className={`relative bg-navy-800 border border-navy-600 rounded-2xl p-8 overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all before:absolute before:top-0 before:inset-x-0 before:h-[3px] before:bg-gradient-to-r ${c.accent.gradient} before:opacity-0 before:transition-opacity hover:before:opacity-100`}
             >
-              <div className="w-12 h-12 bg-blue-500/[0.15] rounded-xl flex items-center justify-center mb-5">
-                <div className="w-6 h-6 text-blue-400">{c.icon}</div>
+              <div className={`w-12 h-12 ${c.accent.icon} rounded-xl flex items-center justify-center mb-5`}>
+                <div className="w-6 h-6">{c.icon}</div>
               </div>
-              <span className="inline-block text-[0.7rem] font-semibold uppercase tracking-[1.5px] text-cyan-400 mb-3">
+              <span className={`inline-block text-[0.7rem] font-semibold uppercase tracking-[1.5px] ${c.accent.tag} mb-3`}>
                 {c.tag}
               </span>
               <h3 className="text-xl font-semibold text-white mb-3 leading-snug">{c.title}</h3>
@@ -89,7 +93,7 @@ export default function CaseStudies() {
               <div className="flex gap-6 mb-5 pt-5 border-t border-navy-600">
                 {c.metrics.map((m) => (
                   <div key={m.label}>
-                    <span className="block text-2xl font-bold text-blue-400">{m.value}</span>
+                    <span className={`block text-2xl font-bold ${c.accent.metric}`}>{m.value}</span>
                     <span className="text-xs text-slate-500 uppercase tracking-wide">
                       {m.label}
                     </span>

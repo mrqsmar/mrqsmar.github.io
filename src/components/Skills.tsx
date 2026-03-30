@@ -4,6 +4,9 @@ import { useInView } from './useInView'
 const groups = [
   {
     title: 'PM Skills',
+    accent: 'text-blue-400 border-blue-500/20',
+    hoverBorder: 'hover:border-blue-500/30',
+    dot: 'before:bg-blue-400',
     items: [
       'Product Strategy & Roadmapping',
       'Agile / Scrum',
@@ -15,6 +18,9 @@ const groups = [
   },
   {
     title: 'Payments Domain',
+    accent: 'text-emerald-400 border-emerald-500/20',
+    hoverBorder: 'hover:border-emerald-500/30',
+    dot: 'before:bg-emerald-400',
     items: [
       'VisaNet Platform & APIs',
       'Payment Routing & Optimization',
@@ -26,6 +32,9 @@ const groups = [
   },
   {
     title: 'Data & Analytics',
+    accent: 'text-amber-400 border-amber-500/20',
+    hoverBorder: 'hover:border-amber-500/30',
+    dot: 'before:bg-amber-400',
     items: [
       'Tableau',
       'SQL & Data Pipelines',
@@ -37,6 +46,9 @@ const groups = [
   },
   {
     title: 'AI / ML',
+    accent: 'text-violet-400 border-violet-500/20',
+    hoverBorder: 'hover:border-violet-500/30',
+    dot: 'before:bg-violet-400',
     items: [
       'ML Product Ownership',
       'LLM / ChatGPT Architecture',
@@ -67,16 +79,16 @@ export default function Skills() {
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="bg-navy-700 border border-navy-600 rounded-xl p-7 hover:border-blue-500/30 transition-all"
+              className={`bg-navy-700 border border-navy-600 rounded-xl p-7 ${g.hoverBorder} transition-all`}
             >
-              <h3 className="text-xs font-semibold uppercase tracking-[1.5px] text-blue-400 mb-5 pb-3 border-b border-navy-600">
+              <h3 className={`text-xs font-semibold uppercase tracking-[1.5px] ${g.accent} mb-5 pb-3 border-b border-navy-600`}>
                 {g.title}
               </h3>
               <ul className="space-y-1.5">
                 {g.items.map((item) => (
                   <li
                     key={item}
-                    className="text-sm text-slate-400 pl-4 relative before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full before:bg-slate-500"
+                    className={`text-sm text-slate-400 pl-4 relative before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full ${g.dot}`}
                   >
                     {item}
                   </li>

@@ -4,6 +4,7 @@ export interface ExperienceRole {
   location: string
   dates: string
   bullets: string[]
+  skills: string[]
 }
 
 export const experienceData: ExperienceRole[] = [
@@ -19,6 +20,7 @@ export const experienceData: ExperienceRole[] = [
       'Implemented production-grade security infrastructure with OPA Policy Framework on AWS, Kong API Gateway, and role-based access control for Client, Admin, and Expert roles',
       'Built full user authentication system using Flask, Bcrypt, SQLAlchemy, and Docker containerization',
     ],
+    skills: ['Full-Stack AI', 'Flask & React', 'AWS & Docker'],
   },
   {
     title: 'Product Manager, AI Payments Optimization',
@@ -34,6 +36,7 @@ export const experienceData: ExperienceRole[] = [
       'Created a Tableau-based Value Calculator and fused 6 data sources, delivering a real-time executive KPI dashboard',
       'Authored internal playbooks for AI payment feature troubleshooting, increasing support team resolution efficiency by 30%',
     ],
+    skills: ['BERT / ML', 'A/B Testing', 'Tableau'],
   },
   {
     title: 'Associate Product Manager, Card Platforms & Conversational AI',
@@ -47,6 +50,7 @@ export const experienceData: ExperienceRole[] = [
       'Enabled validation of Visa Card Program Enrollment, a suite of APIs that allows issuers, processors and fintechs to enroll and manage cardholder programs in a digital, near real-time environment, executing 30+ Postman API calls to verify logic',
       'Improved VCPE Tableau dashboards used by 500+ employees by installing enhancements, cutting exec reporting time by 75%',
     ],
+    skills: ['LLM / ChatGPT', 'Figma & UX', 'API Testing'],
   },
   {
     title: 'Associate Product Manager, AI Payments Optimization',
@@ -60,5 +64,6 @@ export const experienceData: ExperienceRole[] = [
       'Defined customizable retry rules and partnered with AI/ML engineers and UX designers to ship an internal rule config UI',
       'Partnered with engineering to run A/B tests on retry rules, leading to identification of optimal configuration for high-value merchants',
     ],
+    skills: ['AI/ML Ops', 'Data Analytics', 'UX Design'],
   },
 ]
