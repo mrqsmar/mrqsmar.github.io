@@ -1,6 +1,6 @@
 # mrqsmar.github.io
 
-Personal portfolio website for **Marcos Martinez** — Technical Product Manager specializing in ML-powered payments and AI products at Visa.
+Personal portfolio website for **Marques Mar** — Technical Product Manager specializing in ML-powered payments and AI products at Visa.
 
 ## Live Site
 
