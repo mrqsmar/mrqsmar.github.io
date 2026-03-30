@@ -8,6 +8,19 @@ export interface ExperienceRole {
 
 export const experienceData: ExperienceRole[] = [
   {
+    title: 'AI Product Engineering Intern',
+    company: 'InvestorMatch.ai',
+    location: 'Remote',
+    dates: '2025',
+    bullets: [
+      'Shipped a full-stack Voice-First AI coaching product end-to-end, enabling founders to match with investors through personalized AI-driven conversations',
+      'Built a long-term memory system using VAPI, n8n, and ElevenLabs so the AI Protégé remembers previous sessions and resumes without lost context',
+      'Developed a self-improving knowledge base using Anthropic API and AWS S3 that continuously updates from new expert sources and conversations',
+      'Implemented production-grade security infrastructure with OPA Policy Framework on AWS, Kong API Gateway, and role-based access control for Client, Admin, and Expert roles',
+      'Built full user authentication system using Flask, Bcrypt, SQLAlchemy, and Docker containerization',
+    ],
+  },
+  {
     title: 'Product Manager, AI Payments Optimization',
     company: 'Visa',
     location: 'Bellevue, WA',
