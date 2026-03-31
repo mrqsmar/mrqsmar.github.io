@@ -2,6 +2,8 @@ export interface ExperienceRole {
   title: string
   company: string
   location: string
+  organization?: string
+  seed?: string
   dates: string
   bullets: string[]
   skills: string[]
