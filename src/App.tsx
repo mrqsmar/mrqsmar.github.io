@@ -10,6 +10,7 @@ import Interests from './components/Interests'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CaseStudyVisa from './components/CaseStudyVisa'
+import CaseStudyOrchestration from './components/CaseStudyOrchestration'
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname)
@@ -25,6 +26,16 @@ export default function App() {
       <>
         <Nav />
         <CaseStudyVisa />
+        <Footer />
+      </>
+    )
+  }
+
+  if (path === '/case-studies/orchestration') {
+    return (
+      <>
+        <Nav />
+        <CaseStudyOrchestration />
         <Footer />
       </>
     )

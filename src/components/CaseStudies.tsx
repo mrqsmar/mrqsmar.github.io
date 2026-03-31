@@ -46,6 +46,7 @@ const cases: CaseStudy[] = [
     ],
     tags: ['ML Models', 'VisaNet APIs', 'Payment Routing'],
     accent: { tag: 'text-emerald-400', metric: 'text-emerald-400', icon: 'bg-emerald-500/[0.15] text-emerald-400', gradient: 'before:from-emerald-500 before:to-cyan-400' },
+    href: '/case-studies/orchestration',
   },
   {
     icon: (
