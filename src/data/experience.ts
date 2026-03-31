@@ -12,7 +12,8 @@ export const experienceData: ExperienceRole[] = [
     title: 'AI Product Engineering Intern',
     company: 'InvestorMatch.ai',
     location: 'Remote',
-    dates: '2025',
+    seed: 'Series A',
+    dates: 'April 2025 - July 2025',
     bullets: [
       'Shipped a full-stack Voice-First AI coaching product end-to-end, enabling founders to match with investors through personalized AI-driven conversations',
       'Built a long-term memory system using VAPI, n8n, and ElevenLabs so the AI Protégé remembers previous sessions and resumes without lost context',
@@ -20,12 +21,13 @@ export const experienceData: ExperienceRole[] = [
       'Implemented production-grade security infrastructure with OPA Policy Framework on AWS, Kong API Gateway, and role-based access control for Client, Admin, and Expert roles',
       'Built full user authentication system using Flask, Bcrypt, SQLAlchemy, and Docker containerization',
     ],
-    skills: ['Full-Stack AI', 'Flask & React', 'AWS & Docker'],
+    skills: ['Agentic AI', 'System Architecture', 'Containerization'],
   },
   {
     title: 'Product Manager, AI Payments Optimization',
     company: 'Visa',
     location: 'Bellevue, WA',
+    organization: 'Acceptance Solutions',
     dates: 'April 2024 – January 2025',
     bullets: [
       'Enabled 484 Merchant IDs and scaled adoption from 415 to 899 MIDs, boosting merchant revenue recovery to $1M/week',
@@ -36,11 +38,12 @@ export const experienceData: ExperienceRole[] = [
       'Created a Tableau-based Value Calculator and fused 6 data sources, delivering a real-time executive KPI dashboard',
       'Authored internal playbooks for AI payment feature troubleshooting, increasing support team resolution efficiency by 30%',
     ],
-    skills: ['BERT / ML', 'A/B Testing', 'Tableau'],
+    skills: ['BERT / ML', 'A/B Testing', 'People Management'],
   },
   {
     title: 'Associate Product Manager, Card Platforms & Conversational AI',
     company: 'Visa',
+    organization: 'VisaNet Value Added Services',
     location: 'Bellevue, WA',
     dates: 'September 2023 – April 2024',
     bullets: [
@@ -50,11 +53,12 @@ export const experienceData: ExperienceRole[] = [
       'Enabled validation of Visa Card Program Enrollment, a suite of APIs that allows issuers, processors and fintechs to enroll and manage cardholder programs in a digital, near real-time environment, executing 30+ Postman API calls to verify logic',
       'Improved VCPE Tableau dashboards used by 500+ employees by installing enhancements, cutting exec reporting time by 75%',
     ],
-    skills: ['LLM / ChatGPT', 'Figma & UX', 'API Testing'],
+    skills: ['LLM / ChatGPT', '0->1', 'API Testing'],
   },
   {
     title: 'Associate Product Manager, AI Payments Optimization',
     company: 'Visa',
+    organization: 'Acceptance Solutions',
     location: 'Bellevue, WA',
     dates: 'September 2022 – September 2023',
     bullets: [
