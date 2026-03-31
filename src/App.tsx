@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,8 +9,27 @@ import Skills from './components/Skills'
 import Interests from './components/Interests'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import CaseStudyVisa from './components/CaseStudyVisa'
 
 export default function App() {
+  const [path, setPath] = useState(window.location.pathname)
+
+  useEffect(() => {
+    const onPopState = () => setPath(window.location.pathname)
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
+  if (path === '/case-studies/visa') {
+    return (
+      <>
+        <Nav />
+        <CaseStudyVisa />
+        <Footer />
+      </>
+    )
+  }
+
   return (
     <>
       <Nav />

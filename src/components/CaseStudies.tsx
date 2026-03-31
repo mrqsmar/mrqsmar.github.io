@@ -9,9 +9,28 @@ interface CaseStudy {
   metrics: { value: string; label: string }[]
   tags: string[]
   accent: { tag: string; metric: string; icon: string; gradient: string }
+  href?: string
 }
 
 const cases: CaseStudy[] = [
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 12l2 2 4-4" />
+        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    tag: 'NLP / Compliance',
+    title: 'ML-Powered Retry Classification for Visa SIF',
+    desc: 'Built a BERT-based NLP classifier to categorize 10,000+ decline messages into Visa SIF response categories, replacing brittle rules-based mapping and achieving 96% model confidence.',
+    metrics: [
+      { value: '96%', label: 'Model Confidence' },
+      { value: '10K+', label: 'Messages Classified' },
+    ],
+    tags: ['BERT / NLP', 'CyberSource', 'Risk & Compliance'],
+    accent: { tag: 'text-indigo-400', metric: 'text-indigo-400', icon: 'bg-indigo-500/[0.15] text-indigo-400', gradient: 'before:from-indigo-500 before:to-blue-400' },
+    href: '/case-studies/visa',
+  },
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -73,14 +92,19 @@ export default function CaseStudies() {
           Case Studies
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cases.map((c, i) => (
             <motion.div
               key={c.title}
               initial={{ opacity: 0, y: 32 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 * i }}
-              className={`relative bg-navy-800 border border-navy-600 rounded-2xl p-8 overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all before:absolute before:top-0 before:inset-x-0 before:h-[3px] before:bg-gradient-to-r ${c.accent.gradient} before:opacity-0 before:transition-opacity hover:before:opacity-100`}
+              className={`relative bg-navy-800 border border-navy-600 rounded-2xl p-8 overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all before:absolute before:top-0 before:inset-x-0 before:h-[3px] before:bg-gradient-to-r ${c.accent.gradient} before:opacity-0 before:transition-opacity hover:before:opacity-100 ${c.href ? 'cursor-pointer' : ''}`}
+              onClick={c.href ? () => {
+                window.history.pushState({}, '', c.href!)
+                window.dispatchEvent(new PopStateEvent('popstate'))
+                window.scrollTo(0, 0)
+              } : undefined}
             >
               <div className={`w-12 h-12 ${c.accent.icon} rounded-xl flex items-center justify-center mb-5`}>
                 <div className="w-6 h-6">{c.icon}</div>
@@ -110,6 +134,11 @@ export default function CaseStudies() {
                   </span>
                 ))}
               </div>
+              {c.href && (
+                <span className={`inline-block mt-4 text-xs font-medium ${c.accent.tag} group-hover:underline`}>
+                  View case study &rarr;
+                </span>
+              )}
             </motion.div>
           ))}
         </div>
