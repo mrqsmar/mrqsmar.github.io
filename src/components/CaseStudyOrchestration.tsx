@@ -233,7 +233,8 @@ export default function CaseStudyOrchestration() {
               <p>
                 5.6B transactions result in 947M declines with an approval rate of 83%.
                 SO&rsquo;s deduped model eliminates duplicates for both customer types, resulting in a
-                92.6% approval rate. However, 7% of data still results in $35B in annual purchase volume lost.
+                92.6% approval rate &mdash; and as of 2024, the deduped approval rate has reached <span className="text-emerald-400 font-semibold">94%</span>.
+                However, 7% of data still results in $35B in annual purchase volume lost.
               </p>
             </div>
 
@@ -248,8 +249,8 @@ export default function CaseStudyOrchestration() {
                 <span className="block text-xs text-slate-400 mt-1">Raw Approval Rate</span>
               </div>
               <div className="bg-emerald-500/[0.06] border border-emerald-500/30 rounded-xl p-5 text-center">
-                <span className="block text-2xl font-bold text-emerald-400">92.6%</span>
-                <span className="block text-xs text-slate-400 mt-1">Deduped Approval Rate</span>
+                <span className="block text-2xl font-bold text-emerald-400">94%</span>
+                <span className="block text-xs text-slate-400 mt-1">Deduped Approval Rate (2024)</span>
               </div>
             </div>
 
