@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 import CaseStudyVisa from './components/CaseStudyVisa'
 import CaseStudyOrchestration from './components/CaseStudyOrchestration'
 import CaseStudyVisaBanking from './components/CaseStudyVisaBanking'
+import CaseStudyGRS from './components/CaseStudyGRS'
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname)
@@ -37,6 +38,16 @@ export default function App() {
       <>
         <Nav />
         <CaseStudyVisaBanking />
+        <Footer />
+      </>
+    )
+  }
+
+  if (path === '/case-studies/grs') {
+    return (
+      <>
+        <Nav />
+        <CaseStudyGRS />
         <Footer />
       </>
     )

@@ -73,14 +73,15 @@ const cases: CaseStudy[] = [
       </svg>
     ),
     tag: 'Product Launch',
-    title: 'GRS — Fastest Launch in History',
-    desc: "Delivered the fastest product launch in GRS history by driving cross-functional alignment, streamlining UAT, and building real-time Tableau dashboards that gave stakeholders instant visibility into launch readiness.",
+    title: 'Visa GRS — Fastest Launch in History',
+    desc: "Delivered the fastest product launch in team history by driving cross-functional alignment, streamlining UAT, and building real-time Tableau dashboards that gave stakeholders instant visibility into launch readiness.",
     metrics: [
       { value: '#1', label: 'Fastest Launch' },
       { value: 'E2E', label: 'Ownership' },
     ],
-    tags: ['Go-to-Market', 'Tableau', 'Cross-functional'],
+    tags: ['Go-to-Market', 'FigmaMake', 'Cross-functional'],
     accent: { tag: 'text-amber-400', metric: 'text-amber-400', icon: 'bg-amber-500/[0.15] text-amber-400', gradient: 'before:from-amber-500 before:to-orange-400' },
+    href: '/case-studies/grs',
   },
 ]
 
