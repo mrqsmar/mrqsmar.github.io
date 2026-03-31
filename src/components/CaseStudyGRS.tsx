@@ -31,7 +31,7 @@ const heroTags = [
 
 const metrics = [
   { value: '#1', label: 'Fastest Launch', sub: 'In team history' },
-  { value: '26 min', label: 'Phase 1 Go-Live', sub: 'Happy & unhappy path WAR testing' },
+  { value: '26 min', label: 'Phase 1 Go-Live', sub: 'Happy & unhappy path UAT testing' },
   { value: 'E2E', label: 'Ownership', sub: 'Design through production launch' },
 ]
 
@@ -221,7 +221,7 @@ export default function CaseStudyGRS() {
             <div className="space-y-4 text-sm leading-relaxed text-slate-400 mb-8">
               <p>
                 I launched Phase 1 (Issuer/Processor Flow) in just 26 minutes by creating comprehensive
-                happy and unhappy path scenarios for WAR (Warranty, Availability, Readiness) testing.
+                happy and unhappy path scenarios for UAT (User Acceptance Testing).
                 This meticulous test preparation ensured all critical paths were validated upfront,
                 enabling the fastest go-live in team history.
               </p>
@@ -254,7 +254,7 @@ export default function CaseStudyGRS() {
             <blockquote className="border-l-2 border-amber-500 pl-5 py-2 mt-8">
               <p className="text-sm text-slate-300 italic leading-relaxed">
                 &ldquo;Phase 1 launched in 26 minutes &mdash; the fastest go-live in team history &mdash;
-                enabled by thorough WAR test preparation covering every happy and unhappy path.&rdquo;
+                enabled by thorough UAT preparation covering every happy and unhappy path.&rdquo;
               </p>
             </blockquote>
           </section>
