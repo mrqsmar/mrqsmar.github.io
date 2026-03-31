@@ -56,13 +56,14 @@ const cases: CaseStudy[] = [
     ),
     tag: 'AI / LLM',
     title: 'Visa Banking Assistant LLM Launch',
-    desc: 'Shipped a production-grade conversational AI assistant for banking partners using LLM/ChatGPT architecture. Defined prompt engineering strategies, safety guardrails, and API integration patterns for enterprise deployment.',
+    desc: 'Built a generative AI voice assistant for community and regional banks (<$10B AUM) using a ChatGPT DAG architecture with RAG-powered merchant analysis, PCI DSS compliance, and hallucination guardrails — reducing customer friction by 25%.',
     metrics: [
+      { value: '25%', label: 'Friction Reduction' },
       { value: 'Prod', label: 'Deployed' },
-      { value: 'LLM', label: 'Architecture' },
     ],
     tags: ['LLM/ChatGPT', 'Prompt Engineering', 'Enterprise AI'],
     accent: { tag: 'text-violet-400', metric: 'text-violet-400', icon: 'bg-violet-500/[0.15] text-violet-400', gradient: 'before:from-violet-500 before:to-blue-400' },
+    href: '/case-studies/visa-banking',
   },
   {
     icon: (
