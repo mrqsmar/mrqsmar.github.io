@@ -44,7 +44,7 @@ export default function Nav() {
           onClick={(e) => navigateHome(e, isSubPage ? undefined : 'hero')}
           className="text-xl font-bold text-blue-400 tracking-tight"
         >
-          MS
+          MM
         </a>
 
         {/* Mobile toggle */}
