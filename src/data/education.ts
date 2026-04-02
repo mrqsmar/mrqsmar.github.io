@@ -4,6 +4,7 @@ export interface EducationEntry {
   degree: string
   graduated: string
   details?: string[]
+  logo?: string
 }
 
 export const educationData: EducationEntry[] = [
@@ -12,6 +13,7 @@ export const educationData: EducationEntry[] = [
     location: 'Corvallis, OR',
     degree: 'Bachelor of Science in Computer Science, Summa Cum Laude',
     graduated: 'Graduated: June 2025',
+    logo: '/OregonStateUniversity.jpg',
     details: [
       'Undergraduate Teaching Assistant: CS 361 (Software Engineering) Winter 2025',
     ],
@@ -21,5 +23,6 @@ export const educationData: EducationEntry[] = [
     location: 'Seattle, WA',
     degree: 'Bachelor of Business Administration in Finance, Cum Laude',
     graduated: 'Graduated: December 2021',
+    logo: '/Seattleu.jpg',
   },
 ]
