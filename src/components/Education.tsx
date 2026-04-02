@@ -26,18 +26,26 @@ export default function Education() {
                   <h3 className="text-lg font-semibold text-white">{edu.school}</h3>
                   <span className="text-sm text-slate-500">{edu.location}</span>
                 </div>
-                <svg
-                  className="w-8 h-8 text-blue-400/50 flex-shrink-0 ml-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5" />
-                </svg>
+                {edu.logo ? (
+                  <img
+                    src={edu.logo}
+                    alt={`${edu.school} logo`}
+                    className="w-12 h-12 object-contain flex-shrink-0 ml-4 rounded"
+                  />
+                ) : (
+                  <svg
+                    className="w-8 h-8 text-blue-400/50 flex-shrink-0 ml-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5" />
+                  </svg>
+                )}
               </div>
               <p className="text-sm font-medium text-blue-400 mb-1">{edu.degree}</p>
               <p className="text-sm text-slate-500 mb-3">{edu.graduated}</p>
