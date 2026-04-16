@@ -38,7 +38,7 @@ export default function Products() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="products" className="py-24">
+    <section id="products-i-built" className="py-24">
       <div className="max-w-[1100px] mx-auto px-6" ref={ref}>
         <h2 className="text-3xl font-bold text-white/80 text-center mb-14 section-title-bar">
           Products I Built
