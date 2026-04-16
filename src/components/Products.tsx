@@ -32,6 +32,24 @@ const products: Product[] = [
     tags: ['VAPI', 'ElevenLabs', 'n8n', 'Anthropic API', 'Supabase', 'Flask', 'React'],
     accent: { tag: 'text-sky-400', metric: 'text-sky-400', icon: 'bg-sky-500/[0.15] text-sky-400', gradient: 'before:from-sky-500 before:to-cyan-400' },
   },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z" />
+        <path d="M12 8v8" />
+        <path d="M8 12h8" />
+      </svg>
+    ),
+    tag: 'MOBILE / HEALTH',
+    title: 'Medicine Cabinet',
+    desc: 'Started as a Figma prototype for a Usability Engineering class. Built the full app using Claude Code for my two aunties who are managing multiple medications for dialysis and memory loss. Designed for elderly non-technical users with large text, missed dose tracking, refill alerts, and one-tap pharmacy calling.',
+    metrics: [
+      { value: '2', label: 'Active Users' },
+      { value: '1 Week', label: 'Time to Ship' },
+    ],
+    tags: ['Expo', 'React Native', 'Python', 'Claude Code'],
+    accent: { tag: 'text-emerald-400', metric: 'text-emerald-400', icon: 'bg-emerald-500/[0.15] text-emerald-400', gradient: 'before:from-emerald-500 before:to-teal-400' },
+  },
 ]
 
 export default function Products() {
