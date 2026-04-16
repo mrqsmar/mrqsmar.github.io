@@ -10,6 +10,7 @@ interface Product {
   tags: string[]
   accent: { tag: string; metric: string; icon: string; gradient: string }
   href?: string
+  badge?: string
 }
 
 const products: Product[] = [
@@ -31,6 +32,66 @@ const products: Product[] = [
     ],
     tags: ['VAPI', 'ElevenLabs', 'n8n', 'Anthropic API', 'Supabase', 'Flask', 'React'],
     accent: { tag: 'text-sky-400', metric: 'text-sky-400', icon: 'bg-sky-500/[0.15] text-sky-400', gradient: 'before:from-sky-500 before:to-cyan-400' },
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z" />
+        <path d="M12 8v8" />
+        <path d="M8 12h8" />
+      </svg>
+    ),
+    tag: 'MOBILE / HEALTH',
+    title: 'Medicine Cabinet',
+    desc: 'Started as a Figma prototype for a Usability Engineering class. Built the full app using Claude Code for my two aunties who are managing multiple medications for dialysis and memory loss. Designed for elderly non-technical users with large text, missed dose tracking, refill alerts, and one-tap pharmacy calling.',
+    metrics: [
+      { value: '2', label: 'Active Users' },
+      { value: '1 Week', label: 'Time to Ship' },
+    ],
+    tags: ['Expo', 'React Native', 'Python', 'Claude Code'],
+    accent: { tag: 'text-emerald-400', metric: 'text-emerald-400', icon: 'bg-emerald-500/[0.15] text-emerald-400', gradient: 'before:from-emerald-500 before:to-teal-400' },
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 8l6 6" />
+        <path d="M4 14l6-6 2-3" />
+        <path d="M2 5h12" />
+        <path d="M7 2h1" />
+        <path d="M22 22l-5-10-5 10" />
+        <path d="M14 18h6" />
+      </svg>
+    ),
+    tag: 'MOBILE / AI',
+    title: 'Chinese Translation Chatbot',
+    desc: 'Situational speech-to-text and text-to-speech translation app built for real-world Mandarin conversations. Currently conducting field research in China to validate use cases and improve translation accuracy for context-specific scenarios.',
+    metrics: [
+      { value: 'STT + TTS', label: 'Core Features' },
+      { value: 'Field Research', label: 'In Progress' },
+    ],
+    tags: ['Expo', 'React Native', 'FastAPI', 'Gemini API', 'Render'],
+    accent: { tag: 'text-violet-400', metric: 'text-violet-400', icon: 'bg-violet-500/[0.15] text-violet-400', gradient: 'before:from-violet-500 before:to-purple-400' },
+    badge: 'Coming Soon',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+        <line x1="12" y1="12" x2="12" y2="16" />
+        <line x1="10" y1="14" x2="14" y2="14" />
+      </svg>
+    ),
+    tag: 'WEB / AI',
+    title: 'Job Search Copilot',
+    desc: 'AI-powered job application agent that generates a fully tailored application package in under 3 minutes. Paste a job description and receive a matched resume, cover letter, and interview prep — built to eliminate application chaos and decision fatigue for PM and technical roles.',
+    metrics: [
+      { value: '<3 Min', label: 'Application Package' },
+      { value: '0→1', label: 'Currently Building' },
+    ],
+    tags: ['Claude API', 'Anthropic', 'React', 'Python'],
+    accent: { tag: 'text-orange-400', metric: 'text-orange-400', icon: 'bg-orange-500/[0.15] text-orange-400', gradient: 'before:from-orange-500 before:to-amber-400' },
+    badge: 'Coming Soon',
   },
 ]
 
@@ -58,6 +119,11 @@ export default function Products() {
                 window.scrollTo(0, 0)
               } : undefined}
             >
+              {p.badge && (
+                <span className="absolute top-4 right-4 text-[0.6rem] font-semibold uppercase tracking-[1px] px-2.5 py-1 rounded-full bg-amber-500/[0.15] text-amber-400 border border-amber-500/30">
+                  {p.badge}
+                </span>
+              )}
               <div className={`w-10 h-10 ${p.accent.icon} rounded-xl flex items-center justify-center mb-5`}>
                 <div className="w-5 h-5">{p.icon}</div>
               </div>
@@ -89,6 +155,10 @@ export default function Products() {
               {p.href ? (
                 <span className={`inline-block mt-4 text-xs font-medium ${p.accent.tag} opacity-80 group-hover:underline`}>
                   View project &rarr;
+                </span>
+              ) : p.badge ? (
+                <span className="inline-block mt-4 text-xs font-medium text-slate-500/60">
+                  {p.badge}
                 </span>
               ) : (
                 <span className="inline-block mt-4 text-xs font-medium text-slate-500/60">

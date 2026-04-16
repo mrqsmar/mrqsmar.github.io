@@ -111,6 +111,18 @@ export default function Skills() {
             </motion.span>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-12 pt-8 border-t border-navy-600/60"
+        >
+          <h3 className="text-xs font-semibold uppercase tracking-[1.5px] text-slate-500 mb-4">How I Work</h3>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Built a personal n8n automation pipeline that monitors Series A–C funding announcements across TechCrunch, VentureBeat, and Google News — surfaces hiring signals before job postings go live.
+          </p>
+        </motion.div>
       </div>
     </section>
   )
