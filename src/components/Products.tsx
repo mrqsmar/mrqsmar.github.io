@@ -73,6 +73,26 @@ const products: Product[] = [
     accent: { tag: 'text-violet-400', metric: 'text-violet-400', icon: 'bg-violet-500/[0.15] text-violet-400', gradient: 'before:from-violet-500 before:to-purple-400' },
     badge: 'Coming Soon',
   },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+        <line x1="12" y1="12" x2="12" y2="16" />
+        <line x1="10" y1="14" x2="14" y2="14" />
+      </svg>
+    ),
+    tag: 'WEB / AI',
+    title: 'Job Search Copilot',
+    desc: 'AI-powered job application agent that generates a fully tailored application package in under 3 minutes. Paste a job description and receive a matched resume, cover letter, and interview prep — built to eliminate application chaos and decision fatigue for PM and technical roles.',
+    metrics: [
+      { value: '<3 Min', label: 'Application Package' },
+      { value: '0→1', label: 'Currently Building' },
+    ],
+    tags: ['Claude API', 'Anthropic', 'React', 'Python'],
+    accent: { tag: 'text-orange-400', metric: 'text-orange-400', icon: 'bg-orange-500/[0.15] text-orange-400', gradient: 'before:from-orange-500 before:to-amber-400' },
+    badge: 'Coming Soon',
+  },
 ]
 
 export default function Products() {
