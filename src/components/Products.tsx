@@ -16,19 +16,20 @@ const products: Product[] = [
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
+        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+        <path d="M19 10v2a7 7 0 01-14 0v-2" />
+        <line x1="12" y1="19" x2="12" y2="23" />
+        <line x1="8" y1="23" x2="16" y2="23" />
       </svg>
     ),
-    tag: 'PLACEHOLDER',
-    title: 'Project Title',
-    desc: 'A short description of the product, what it does, and the problem it solves.',
+    tag: 'VOICE AI / EDTECH',
+    title: 'Digital Protege',
+    desc: 'Voice AI coaching platform making professional coaching accessible to everyone. Built during internship at Expert Scale (Apex Replicant). Contributed to the Protégé product — capturing user voice input through VAPI, processing through LLM, and returning natural voice responses cloned from real coaches via ElevenLabs.',
     metrics: [
-      { value: '—', label: 'Metric One' },
-      { value: '—', label: 'Metric Two' },
+      { value: '$75–200/hr', label: 'Problem Solved' },
+      { value: '3', label: 'Person Team' },
     ],
-    tags: ['Tech 1', 'Tech 2', 'Tech 3'],
+    tags: ['VAPI', 'ElevenLabs', 'n8n', 'Anthropic API', 'Supabase', 'Flask', 'React'],
     accent: { tag: 'text-sky-400', metric: 'text-sky-400', icon: 'bg-sky-500/[0.15] text-sky-400', gradient: 'before:from-sky-500 before:to-cyan-400' },
   },
 ]
