@@ -76,6 +76,24 @@ const products: Product[] = [
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+        <line x1="1" y1="10" x2="23" y2="10" />
+      </svg>
+    ),
+    tag: 'FINTECH / SAAS',
+    title: 'PayPath',
+    desc: 'Pre-collections BNPL SaaS for dental clinics and SMBs. Businesses upload unpaid invoices via CSV — PayPath automatically sends customized payment requests via email and SMS, offering customers flexible pay-over-time options before accounts go to collections. Built full codebase solo including Stripe payment integration, hosted checkout pages, and admin dashboard.',
+    metrics: [
+      { value: '30%+', label: 'Revenue Recovered' },
+      { value: 'Solo', label: 'Full Stack Engineer' },
+    ],
+    tags: ['React', 'Flask', 'Postgres', 'Stripe API', 'SendGrid', 'Twilio'],
+    accent: { tag: 'text-indigo-400', metric: 'text-indigo-400', icon: 'bg-indigo-500/[0.15] text-indigo-400', gradient: 'before:from-indigo-500 before:to-blue-400' },
+    badge: 'Coming Soon',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
         <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
         <line x1="12" y1="12" x2="12" y2="16" />
