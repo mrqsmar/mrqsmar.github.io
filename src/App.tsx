@@ -15,6 +15,7 @@ import CaseStudyOrchestration from './components/CaseStudyOrchestration'
 import CaseStudyVisaBanking from './components/CaseStudyVisaBanking'
 import CaseStudyGRS from './components/CaseStudyGRS'
 import MedicineCabinetDetail from './components/MedicineCabinetDetail'
+import ProtegeDetail from './components/ProtegeDetail'
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname)
@@ -70,6 +71,16 @@ export default function App() {
       <>
         <Nav />
         <MedicineCabinetDetail />
+        <Footer />
+      </>
+    )
+  }
+
+  if (path === '/projects/protege') {
+    return (
+      <>
+        <Nav />
+        <ProtegeDetail />
         <Footer />
       </>
     )

@@ -32,6 +32,7 @@ const products: Product[] = [
     ],
     tags: ['VAPI', 'ElevenLabs', 'n8n', 'Anthropic API', 'Supabase', 'Flask', 'React'],
     accent: { tag: 'text-sky-400', metric: 'text-sky-400', icon: 'bg-sky-500/[0.15] text-sky-400', gradient: 'before:from-sky-500 before:to-cyan-400' },
+    href: '/projects/protege',
   },
   {
     icon: (
