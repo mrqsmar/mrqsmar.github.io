@@ -62,10 +62,10 @@ const problems = [
 const features = [
   {
     id: '01',
-    title: 'Save & View Prescription Notes',
-    userStory: 'A user received medication with custom instructions from their pharmacist and wants to save them digitally instead of relying on a paper printout.',
-    how: 'Each prescription entry has a notes field. Users tap to add or edit plain-text notes attached to that medication — visible at a glance whenever they open the prescription.',
-    technical: 'Notes are stored locally in AsyncStorage (React Native) and synced to a lightweight Python/Flask backend. Designed with large font sizes and high contrast so text is readable for low-vision users.',
+    title: 'Home — Daily Medication Dashboard',
+    userStory: 'A user opens the app first thing in the morning to see exactly what to take, what\'s already been missed, and whether any medication is about to run out.',
+    how: 'The home screen surfaces three layers of information at once: a refill alert with a "Call Pharmacy" button when pills are running low, a live progress bar showing taken / missed / upcoming counts for the day, and the full medication list with dosage and scheduled time. Each card shows a pill image alongside the name so there\'s no confusion about which pill is which.',
+    technical: 'Refill status is calculated from a "pills remaining" count decremented on each check-off. The progress bar state is derived from comparing scheduled dose times against the current time and check-off records stored in AsyncStorage. Profile switching (multi-user support) is handled via a dropdown that swaps the active medication dataset.',
     accent: 'emerald',
     border: 'border-emerald-500/40',
     bg: 'bg-emerald-500/[0.06]',
@@ -74,10 +74,10 @@ const features = [
   },
   {
     id: '02',
-    title: 'Add a New Prescription',
-    userStory: 'A user picks up a new medication and wants to log it in the app with dosage and frequency — so they stop relying on the pill bottle to remember.',
-    how: 'A guided form captures medication name, dosage, frequency, and custom schedule (morning/afternoon/night). The app generates a daily checklist automatically from the frequency settings.',
-    technical: 'Built using React Native\'s controlled form inputs with Expo\'s keyboard-aware ScrollView so the form doesn\'t get buried behind the keyboard — a detail that matters for users unfamiliar with mobile conventions.',
+    title: 'History — 30-Day Adherence Calendar',
+    userStory: 'A user\'s doctor asks how consistently they\'ve been taking their blood pressure medication. Instead of guessing, they open the app and show a calendar.',
+    how: 'The History tab shows a 30-day calendar where each day displays color-coded dots — one per scheduled medication — indicating taken, missed, or upcoming status. A summary card at the top shows the overall adherence percentage for the month. Tapping any day expands the detail for that specific date.',
+    technical: 'Historical records are written to AsyncStorage as date-keyed entries each time a medication is checked off or missed. The calendar renders from a computed dataset that maps dates to their dose statuses — dots are generated dynamically based on how many medications were scheduled that day.',
     accent: 'teal',
     border: 'border-teal-500/40',
     bg: 'bg-teal-500/[0.06]',
@@ -86,10 +86,10 @@ const features = [
   },
   {
     id: '03',
-    title: 'Identify Medication by Photo',
-    userStory: 'A user empties their pill organizer and two pills look nearly identical. They take a photo to figure out which is which before taking them.',
-    how: 'The camera opens directly from the medication screen. The image is sent to a Python backend that calls a vision model to identify the pill by shape, color, and imprint — returning the medication name and dosage in plain language.',
-    technical: 'Uses Expo Camera to capture the image, uploads it via multipart form to a Flask endpoint, which queries a vision API. Response is displayed with large text and a confidence indicator. No image is stored after identification.',
+    title: 'Reminders — Per-Medication Notification Times',
+    userStory: 'A user takes Lisinopril at 8am and Magnesium at 4pm. They want the app to nudge them at the right time for each one — not a single blanket reminder.',
+    how: 'The Reminders tab lists every medication with its scheduled times displayed as bold time chips. Each reminder has its own toggle to enable or disable, and an "Edit Times" button to add, remove, or shift individual notification windows. Changes take effect immediately without requiring a restart.',
+    technical: 'Reminders are scheduled using Expo Notifications\' local notification API, which doesn\'t require a server or internet connection — everything fires from the device. Each medication has a notification ID stored in AsyncStorage so existing reminders can be cancelled and rescheduled when times change.',
     accent: 'cyan',
     border: 'border-cyan-500/40',
     bg: 'bg-cyan-500/[0.06]',
@@ -98,10 +98,10 @@ const features = [
   },
   {
     id: '04',
-    title: 'Check Off Medications for the Day',
-    userStory: 'A user who takes 7 medications in the morning can\'t remember if they took their blood pressure pill. They open the app to check — not to Google it.',
-    how: 'The home screen shows today\'s medication checklist grouped by time of day. Each item has a large tap-target checkbox. Checked items move to a "Done" state with a visual strikethrough. The list resets at midnight.',
-    technical: 'Daily state is maintained in AsyncStorage with a date key — no login required, no cloud dependency for the core daily flow. Missed doses are surfaced via local push notifications using Expo Notifications.',
+    title: 'Settings — Pharmacy, Profiles & Accessibility',
+    userStory: 'A user with declining vision struggles to read normal app text. Their caregiver sets up the app with extra-large text and saves the pharmacy number so calling for a refill is one tap.',
+    how: 'Settings has three functional areas: Display (Extra-Large Text toggle that scales all text app-wide), Pharmacy (name and phone number stored for one-tap calling from the refill alert), and Profiles (multiple user profiles so a caregiver can manage medications for more than one person from a single device). A "Clear All Data" button is available for a fresh start.',
+    technical: 'The Extra-Large Text toggle writes a preference to AsyncStorage and triggers a context update that propagates a fontSize multiplier through a React context consumed by all text components — no app restart required. Pharmacy phone number is passed to Expo\'s Linking.openURL("tel:...") for native dialing.',
     accent: 'green',
     border: 'border-green-500/40',
     bg: 'bg-green-500/[0.06]',
@@ -145,20 +145,56 @@ const techStack = [
 
 const designPrinciples = [
   {
-    title: 'Large tap targets everywhere',
-    body: 'Every interactive element is at minimum 48px tall — well above iOS and Android accessibility guidelines. Elderly users with reduced motor precision can confidently tap without misfire.',
+    title: 'Extra-Large Text mode',
+    body: 'A single toggle in Settings scales all text app-wide — no digging through iOS accessibility menus. Designed for users with reduced vision who need larger text but don\'t know how to change system settings.',
   },
   {
-    title: 'No login on first use',
-    body: 'The app opens directly to the medication list. No account creation, no password, no onboarding friction. The daily check-off works offline, day one.',
+    title: 'Refill alert + one-tap calling',
+    body: 'When a medication is running low, a prominent alert appears on the home screen with a "Call Pharmacy" button. The pharmacy number is stored once in Settings and dialed with a single tap — no memorization required.',
   },
   {
-    title: 'High contrast text',
-    body: 'All body text uses near-white on dark backgrounds at 16px minimum. Labels are never relying on color alone to convey meaning — critical for users with reduced contrast sensitivity.',
+    title: 'Progress bar, not just a list',
+    body: 'The home screen shows taken / missed / upcoming counts as a visual progress bar, not a wall of text. Users can see at a glance how they\'re doing for the day without reading every item.',
   },
   {
-    title: 'One-tap pharmacy calling',
-    body: 'The pharmacy phone number is stored per-prescription. A single tap dials directly — eliminating the need to remember or look up the number when it\'s time to refill.',
+    title: 'No login, works offline',
+    body: 'The app opens directly to today\'s medications with no account creation or password. All core functionality — check-offs, reminders, history — runs entirely on-device with no internet required.',
+  },
+  {
+    title: 'Multi-profile support',
+    body: 'A caregiver can manage medications for multiple people from one device. Switching profiles swaps the entire medication dataset — useful for spouses or adult children managing elderly parents.',
+  },
+  {
+    title: 'Share with Caregiver',
+    body: 'One-tap sharing sends the day\'s medication status to a caregiver so they can remotely check if medications were taken — reducing the need for daily check-in phone calls.',
+  },
+]
+
+const screenshots = [
+  {
+    file: '/screenshots/mc-home.png',
+    label: 'Home',
+    desc: 'Today\'s medications with refill alert and progress tracker',
+  },
+  {
+    file: '/screenshots/mc-history.png',
+    label: 'History',
+    desc: '30-day adherence calendar with per-day status dots',
+  },
+  {
+    file: '/screenshots/mc-reminders.png',
+    label: 'Reminders',
+    desc: 'Per-medication notification times, toggle on/off',
+  },
+  {
+    file: '/screenshots/mc-settings.png',
+    label: 'Settings',
+    desc: 'Pharmacy info, profiles, and data management',
+  },
+  {
+    file: '/screenshots/mc-settings-large.png',
+    label: 'Large Text',
+    desc: 'Extra-large text mode for low-vision users',
   },
 ]
 
@@ -252,6 +288,41 @@ export default function MedicineCabinetDetail() {
               View Prototype &rarr;
             </a>
           </div>
+        </Reveal>
+
+        {/* ====== SCREENSHOTS ====== */}
+        <Reveal>
+          <section className="mb-20">
+            <SectionTitle>The app, in production</SectionTitle>
+            <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+              These are real screenshots from the live app — not mockups. Both aunties have this installed
+              and running on their iPhones.
+            </p>
+            <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
+              {screenshots.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.08 * i }}
+                  className="flex flex-col items-center shrink-0 snap-start"
+                  style={{ width: '180px' }}
+                >
+                  {/* Phone frame */}
+                  <div className="relative rounded-[2rem] border-[3px] border-slate-700 bg-black shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden w-[160px] h-[346px] mb-3">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-b-xl z-10" />
+                    <img
+                      src={s.file}
+                      alt={s.label}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-0.5">{s.label}</span>
+                  <span className="text-[0.65rem] text-slate-500 text-center leading-tight">{s.desc}</span>
+                </motion.div>
+              ))}
+            </div>
+          </section>
         </Reveal>
 
         {/* ====== S1: THE PROBLEM ====== */}
@@ -404,7 +475,7 @@ export default function MedicineCabinetDetail() {
               Every UX decision was made with users in mind who may have reduced vision, slower motor
               precision, and low tolerance for complexity.
             </p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {designPrinciples.map((d, i) => (
                 <motion.div
                   key={d.title}
