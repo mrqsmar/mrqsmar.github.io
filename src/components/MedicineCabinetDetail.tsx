@@ -172,27 +172,27 @@ const designPrinciples = [
 
 const screenshots = [
   {
-    file: '/screenshots/mc-home.png',
+    file: '/mc-home.png',
     label: 'Home',
     desc: 'Today\'s medications with refill alert and progress tracker',
   },
   {
-    file: '/screenshots/mc-history.png',
+    file: '/mc-history.png',
     label: 'History',
     desc: '30-day adherence calendar with per-day status dots',
   },
   {
-    file: '/screenshots/mc-reminders.png',
+    file: '/mc-reminders.png',
     label: 'Reminders',
     desc: 'Per-medication notification times, toggle on/off',
   },
   {
-    file: '/screenshots/mc-settings.png',
+    file: '/mc-settings.png',
     label: 'Settings',
     desc: 'Pharmacy info, profiles, and data management',
   },
   {
-    file: '/screenshots/mc-settings-large.png',
+    file: '/mc-settings-large.png',
     label: 'Large Text',
     desc: 'Extra-large text mode for low-vision users',
   },
