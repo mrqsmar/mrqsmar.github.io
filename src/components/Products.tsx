@@ -50,6 +50,7 @@ const products: Product[] = [
     ],
     tags: ['Expo', 'React Native', 'Python', 'Claude Code'],
     accent: { tag: 'text-emerald-400', metric: 'text-emerald-400', icon: 'bg-emerald-500/[0.15] text-emerald-400', gradient: 'before:from-emerald-500 before:to-teal-400' },
+    href: '/projects/medicine-cabinet',
   },
   {
     icon: (
