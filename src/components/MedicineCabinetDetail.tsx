@@ -26,6 +26,7 @@ const heroTags = [
   'Expo',
   'Python',
   'Claude Code',
+  'Claude Design',
   'Mobile / Health',
   'UX Research',
 ]
@@ -221,6 +222,107 @@ const origin = [
   },
 ]
 
+const complaints = [
+  { quote: 'The add, delete and edit was too confusing', category: 'Navigation' },
+  { quote: 'The home page is extremely overwhelming and the language was too harsh', category: 'Information Architecture' },
+  { quote: 'The progress bar felt too much like I fell behind and was unnecessary feature', category: 'Feedback Design' },
+  { quote: 'The calendar should measure how reliable I am at taking the medicine', category: 'Data Framing' },
+  { quote: 'Buttons were a bit small for my fingers', category: 'Accessibility' },
+  { quote: "The share with caregiver doesn't make sense, make a caregiver mode", category: 'Mental Models' },
+  { quote: 'Too much steps to call pharmacist for refills', category: 'Efficiency' },
+  { quote: 'No feedback when I take my medicine, just a checkmark', category: 'Micro-interactions' },
+  { quote: "Wasn't a big notification when I locked on to remind me hey I need to take my meds in an hour", category: 'Notifications' },
+  { quote: "Adding medications didn't have specific steps, walk me through so then I know when im done", category: 'Onboarding' },
+  { quote: 'Caregivers: I want my own view where I can simply keep track on one screen', category: 'Caregiver UX' },
+]
+
+const nielsenHeuristics = [
+  {
+    num: '01',
+    name: 'Visibility of System Status',
+    v1: 'Checking off a dose showed only a checkmark — no animation, no celebration. Lock-screen notifications were too small to notice.',
+    v2: 'Animated confirmation on each check-off. Prominent lock-screen banner fires 1 hour before scheduled dose.',
+    severity: 'High',
+  },
+  {
+    num: '02',
+    name: 'Match Between System and Real World',
+    v1: "The progress bar implied users were 'falling behind.' The calendar framed adherence as a deficit, not a strength.",
+    v2: 'Replaced with an Adherence Score showing reliability percentage — encouraging language, not a tracker of failure.',
+    severity: 'High',
+  },
+  {
+    num: '03',
+    name: 'User Control and Freedom',
+    v1: 'Add, edit, and delete actions were exposed simultaneously, overwhelming elderly users who were unsure which to tap.',
+    v2: 'Progressive disclosure — contextual actions revealed only when relevant. Clear step-by-step confirmation flow.',
+    severity: 'High',
+  },
+  {
+    num: '04',
+    name: 'Consistency and Standards',
+    v1: '"Share with Caregiver" had no familiar mental model — users did not know what it sent or who received it.',
+    v2: 'Dedicated Caregiver Mode — a recognized app pattern with its own simplified single-screen dashboard.',
+    severity: 'Medium',
+  },
+  {
+    num: '05',
+    name: 'Error Prevention',
+    v1: 'Adding medications had no step indicators — users could not tell if they were finished or had skipped a required field.',
+    v2: 'Guided wizard with step progress indicators and an explicit Done state so users always know when they are finished.',
+    severity: 'High',
+  },
+  {
+    num: '06',
+    name: 'Recognition Rather Than Recall',
+    v1: 'The pharmacy number lived in Settings — users had to navigate there every time they needed to call for a refill.',
+    v2: 'Persistent refill alert card on the home screen with a one-tap Call Pharmacy button when pills run low.',
+    severity: 'Medium',
+  },
+  {
+    num: '07',
+    name: 'Flexibility and Efficiency of Use',
+    v1: 'Calling the pharmacist required navigating multiple screens. Caregivers had no efficient overview of patients.',
+    v2: 'One-tap refill calling from the home screen. Caregiver Mode is a single-screen overview of all patients.',
+    severity: 'Medium',
+  },
+  {
+    num: '08',
+    name: 'Aesthetic and Minimalist Design',
+    v1: 'The home screen displayed too much at once. Clinical language felt harsh for users managing chronic illness.',
+    v2: 'Reorganized home screen with a calmer visual hierarchy. Warmer microcopy — encouraging, not transactional.',
+    severity: 'High',
+  },
+  {
+    num: '09',
+    name: 'Help Users Recover from Errors',
+    v1: 'No undo for accidental taps. Deleting a medication or marking the wrong dose had no recovery path.',
+    v2: 'Confirmation dialogs before destructive actions. Short undo window available after check-off actions.',
+    severity: 'Medium',
+  },
+  {
+    num: '10',
+    name: 'Help and Documentation',
+    v1: 'No onboarding or setup guidance — users opened to a blank state with no prompts on how to get started.',
+    v2: 'Step-by-step onboarding wizard on first launch. In-context tooltips for first-time interactions with each feature.',
+    severity: 'High',
+  },
+]
+
+const v1Screens = [
+  { label: 'Home', desc: 'Dashboard with progress bar', file: 'rx-v1-home' },
+  { label: 'Calendar', desc: '30-day view, no adherence framing', file: 'rx-v1-calendar' },
+  { label: 'Reminders', desc: 'Per-medication notification toggles', file: 'rx-v1-reminders' },
+  { label: 'Settings', desc: 'Pharmacy info buried in settings', file: 'rx-v1-settings' },
+]
+
+const v2Screens = [
+  { label: 'Home', desc: 'Calm, prioritized daily view', file: 'rx-v2-home' },
+  { label: 'Adherence Calendar', desc: 'Reliability score, positive framing', file: 'rx-v2-calendar' },
+  { label: 'Add Medication', desc: 'Step-by-step guided wizard', file: 'rx-v2-add-medication' },
+  { label: 'Caregiver Mode', desc: 'Single-screen patient overview', file: 'rx-v2-caregiver' },
+]
+
 export default function MedicineCabinetDetail() {
   return (
     <main className="pt-28 pb-24">
@@ -232,7 +334,7 @@ export default function MedicineCabinetDetail() {
             Product Case Study
           </p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-            Medicine Cabinet
+            RemindeRx
           </h1>
           <p className="text-base text-slate-400 mb-4">
             A medication management app built for elderly users — started as a Figma prototype for
@@ -321,6 +423,172 @@ export default function MedicineCabinetDetail() {
                   <span className="text-[0.65rem] text-slate-500 text-center leading-tight">{s.desc}</span>
                 </motion.div>
               ))}
+            </div>
+          </section>
+        </Reveal>
+
+        {/* ====== USER RESEARCH ====== */}
+        <Reveal>
+          <section className="mb-20">
+            <p className="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-3">User Research</p>
+            <SectionTitle>What happened after V1 launched</SectionTitle>
+            <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+              V1 was built in a single day using Claude Code and shipped directly to real users. Within hours, feedback came in — specific, personal, and actionable. Rather than treating complaints as friction, we treated them as a structured research dataset and ran them against Jakob Nielsen&rsquo;s 10 Usability Heuristics to diagnose root causes. V2 was then redesigned and rebuilt the following day with Claude Design.
+            </p>
+
+            {/* Build timeline */}
+            <div className="flex items-center overflow-x-auto pb-2 mb-14 gap-0">
+              {[
+                { label: 'Day 1', detail: 'Built V1 with Claude Code', color: 'text-emerald-400', bg: 'bg-emerald-500/[0.08] border-emerald-500/30' },
+                { label: 'Launch', detail: 'Shipped to real users', color: 'text-slate-300', bg: 'bg-navy-800 border-navy-600' },
+                { label: 'Research', detail: '11 user insights collected', color: 'text-amber-400', bg: 'bg-amber-500/[0.08] border-amber-500/30' },
+                { label: 'Day 2', detail: 'Rebuilt V2 with Claude Design', color: 'text-sky-400', bg: 'bg-sky-500/[0.08] border-sky-500/30' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center shrink-0">
+                  <div className={`border ${step.bg} rounded-lg px-4 py-2.5 text-center min-w-[130px]`}>
+                    <p className={`text-xs font-bold ${step.color} uppercase tracking-wider`}>{step.label}</p>
+                    <p className="text-[0.7rem] text-slate-400 mt-0.5">{step.detail}</p>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="w-8 shrink-0 mx-1 flex items-center">
+                      <div className="flex-1 h-px bg-slate-700" />
+                      <div className="w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[6px] border-l-slate-600" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Complaint cards */}
+            <h3 className="text-sm font-bold text-white mb-4">11 Complaints from Real Users</h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
+              {complaints.map((c, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.05 * i }}
+                  className="bg-navy-800 border border-navy-600 rounded-xl p-4"
+                >
+                  <span className="inline-block text-[0.6rem] font-bold uppercase tracking-widest text-amber-400 bg-amber-500/[0.1] border border-amber-500/20 rounded-full px-2 py-0.5 mb-3">
+                    {c.category}
+                  </span>
+                  <p className="text-sm text-slate-300 italic leading-relaxed">&ldquo;{c.quote}&rdquo;</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Nielsen heuristics */}
+            <h3 className="text-sm font-bold text-white mb-2">Jakob Nielsen&rsquo;s 10 Heuristics — V1 Audit</h3>
+            <p className="text-sm text-slate-400 mb-6 leading-relaxed">
+              Each complaint was mapped to a violated heuristic to identify the root cause and inform the V2 redesign.
+            </p>
+            <div className="space-y-3 mb-14">
+              {nielsenHeuristics.map((h, i) => (
+                <motion.div
+                  key={h.num}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.04 * i }}
+                  className="bg-navy-800 border border-navy-600 rounded-xl p-5"
+                >
+                  <div className="flex items-start justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-bold text-slate-500 font-mono">{h.num}</span>
+                      <h4 className="text-sm font-bold text-white">{h.name}</h4>
+                    </div>
+                    <span className={`shrink-0 text-[0.6rem] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${
+                      h.severity === 'High'
+                        ? 'text-rose-400 bg-rose-500/[0.1] border-rose-500/20'
+                        : 'text-amber-400 bg-amber-500/[0.1] border-amber-500/20'
+                    }`}>
+                      {h.severity}
+                    </span>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="bg-rose-500/[0.05] border border-rose-500/20 rounded-lg p-3">
+                      <p className="text-[0.6rem] font-bold text-rose-400 uppercase tracking-wider mb-1">V1 — Violated</p>
+                      <p className="text-xs text-slate-400 leading-relaxed">{h.v1}</p>
+                    </div>
+                    <div className="bg-emerald-500/[0.05] border border-emerald-500/20 rounded-lg p-3">
+                      <p className="text-[0.6rem] font-bold text-emerald-400 uppercase tracking-wider mb-1">V2 — Fixed</p>
+                      <p className="text-xs text-slate-400 leading-relaxed">{h.v2}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Before / After screens */}
+            <h3 className="text-sm font-bold text-white mb-2">Before &amp; After — V1 vs V2</h3>
+            <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+              iPhone 16 Pro Max screenshots from both versions. Drop your images into{' '}
+              <code className="text-xs text-emerald-400 bg-emerald-500/[0.1] px-1.5 py-0.5 rounded">/public/</code>{' '}
+              using the filenames shown below each frame.
+            </p>
+
+            {/* V1 row */}
+            <div className="mb-10">
+              <div className="flex items-center gap-2 mb-5">
+                <span className="w-2 h-2 rounded-full bg-rose-400 shrink-0" />
+                <span className="text-xs font-bold text-rose-400 uppercase tracking-widest">Version 1 — Before</span>
+              </div>
+              <div className="flex gap-5 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
+                {v1Screens.map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.08 * i }}
+                    className="flex flex-col items-center shrink-0 snap-start"
+                    style={{ width: '170px' }}
+                  >
+                    <div className="relative rounded-[2.5rem] border-[3px] border-slate-700 bg-black shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-[155px] h-[335px] mb-3 overflow-hidden">
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[70px] h-[22px] bg-black rounded-full z-10" />
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-slate-900 border-2 border-dashed border-slate-700/60">
+                        <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p className="text-[0.5rem] text-slate-600 text-center px-3 leading-snug">{s.file}.png</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-rose-400 uppercase tracking-wider mb-0.5">{s.label}</span>
+                    <span className="text-[0.62rem] text-slate-500 text-center leading-tight">{s.desc}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* V2 row */}
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Version 2 — After</span>
+              </div>
+              <div className="flex gap-5 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
+                {v2Screens.map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.08 * i }}
+                    className="flex flex-col items-center shrink-0 snap-start"
+                    style={{ width: '170px' }}
+                  >
+                    <div className="relative rounded-[2.5rem] border-[3px] border-emerald-900/60 bg-black shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-[155px] h-[335px] mb-3 overflow-hidden">
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[70px] h-[22px] bg-black rounded-full z-10" />
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-slate-900 border-2 border-dashed border-emerald-900/40">
+                        <svg className="w-6 h-6 text-emerald-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p className="text-[0.5rem] text-emerald-900 text-center px-3 leading-snug">{s.file}.png</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-0.5">{s.label}</span>
+                    <span className="text-[0.62rem] text-slate-500 text-center leading-tight">{s.desc}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </section>
         </Reveal>
