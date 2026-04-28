@@ -43,7 +43,7 @@ const products: Product[] = [
       </svg>
     ),
     tag: 'MOBILE / HEALTH',
-    title: 'Medicine Cabinet',
+    title: 'RemindeRx',
     desc: 'Started as a Figma prototype for a Usability Engineering class. Built the full app using Claude Code for my two aunties who are managing multiple medications for dialysis and memory loss. Designed for elderly non-technical users with large text, missed dose tracking, refill alerts, and one-tap pharmacy calling.',
     metrics: [
       { value: '2', label: 'Active Users' },
