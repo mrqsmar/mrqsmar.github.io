@@ -48,7 +48,7 @@ export const experienceData: ExperienceRole[] = [
     bullets: [
       'Enabled 484 Merchant IDs and scaled adoption from 415 to 899 MIDs, boosting merchant revenue recovery to $1M/week',
       'Launched Card Verification and Retry with Alternate Processor features; saving $150K/week via A/B-tested fallback logic',
-      'Managed and mentored four PMs as direct reports; built training plans and led weekly 1:1s, leading to high reviews and a return offer',
+      'Managed and mentored 2 PMs as direct reports; built training plans and led weekly 1:1s, leading to high reviews and a return offer',
       'Reduced new team member ramp time by 40% through comprehensive product glossary, improving collaboration velocity',
       'Led development of a BERT-based model with ML engineers to classify payment errors, increasing visibility for users',
       'Created a Tableau-based Value Calculator and fused 6 data sources, delivering a real-time executive KPI dashboard',
