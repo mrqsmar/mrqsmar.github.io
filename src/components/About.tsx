@@ -26,7 +26,9 @@ export default function About() {
           >
             <p className="text-slate-400 leading-relaxed">
               I'm a Product Manager on the Payments team at{' '}
-              <strong className="text-white">Varo Bank</strong>, and previously at{' '}
+              <strong className="text-white">Varo Bank</strong>, where I own{' '}
+              <strong className="text-white">Debit Card, Debit &amp; Credit Spend, and Remote Check Deposit</strong>,
+              and partner with our Decagon team on AI. Before Varo, I was a PM at{' '}
               <strong className="text-white">Visa</strong>. I sit at the intersection of{' '}
               <strong className="text-white">Machine Learning, Payments Infrastructure, and AI</strong>.
               I specialize in translating complex ML capabilities into products that drive measurable
