@@ -17,6 +17,25 @@ const products: Product[] = [
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+        <line x1="1" y1="10" x2="23" y2="10" />
+        <polyline points="5 17 9 14 12 16 17 13" />
+      </svg>
+    ),
+    tag: 'PAYMENTS / AI',
+    title: 'Debit Copilot',
+    desc: 'AI copilot for debit-card PMs and payments analysts. Ask in plain English why approval rate moved and get a verified investigation: which decline reasons and segments drove it, how much spend and estimated interchange is at stake, and what to check next. Claude decides what to look at; tested, deterministic tools compute every number.',
+    metrics: [
+      { value: '22/22', label: 'Tool Checks Passed' },
+      { value: '6', label: 'Incident Scenarios' },
+    ],
+    tags: ['Claude API', 'Python', 'DuckDB', 'Streamlit'],
+    accent: { tag: 'text-teal-400', metric: 'text-teal-400', icon: 'bg-teal-500/[0.15] text-teal-400', gradient: 'before:from-teal-500 before:to-emerald-400' },
+    href: '/projects/debit-copilot',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
         <path d="M19 10v2a7 7 0 01-14 0v-2" />
         <line x1="12" y1="19" x2="12" y2="23" />

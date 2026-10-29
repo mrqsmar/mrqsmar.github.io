@@ -16,6 +16,7 @@ import CaseStudyVisaBanking from './components/CaseStudyVisaBanking'
 import CaseStudyGRS from './components/CaseStudyGRS'
 import MedicineCabinetDetail from './components/MedicineCabinetDetail'
 import ProtegeDetail from './components/ProtegeDetail'
+import DebitCopilotDetail from './components/DebitCopilotDetail'
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname)
@@ -71,6 +72,16 @@ export default function App() {
       <>
         <Nav />
         <MedicineCabinetDetail />
+        <Footer />
+      </>
+    )
+  }
+
+  if (path === '/projects/debit-copilot') {
+    return (
+      <>
+        <Nav />
+        <DebitCopilotDetail />
         <Footer />
       </>
     )
