@@ -22,7 +22,7 @@ const interests = [
     title: 'Travel, paid in points',
     desc: 'Based in Seattle. 20 states, Japan and South Korea so far, mostly on points.',
     photo: '/assets/interest-travel.jpg',
-    alt: 'A travel photo from one of my trips',
+    alt: 'Blue fishing boats moored in a harbour at dusk, with high-rise towers on the hill behind',
     tint: 'bg-ai-soft',
   },
 ]
