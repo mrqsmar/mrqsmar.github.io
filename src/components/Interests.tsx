@@ -6,6 +6,7 @@ const interests = [
     title: 'Car research',
     desc: 'Deep dives into specs, performance data and market trends across the automotive world.',
     photo: '/assets/interest-cars.jpg',
+    alt: 'A car I researched',
     tint: 'bg-fintech-soft',
   },
   {
@@ -13,6 +14,7 @@ const interests = [
     title: 'Style as design',
     desc: 'Following trends and appreciating where design meets self-expression.',
     photo: '/assets/interest-fashion.jpg',
+    alt: 'Marques in a black cap, cream hoodie and black jacket, holding a pink coffee cup',
     tint: 'bg-mobile-soft',
   },
   {
@@ -20,6 +22,7 @@ const interests = [
     title: 'Travel, paid in points',
     desc: 'Based in Seattle. 20 states, Japan and South Korea so far, mostly on points.',
     photo: '/assets/interest-travel.jpg',
+    alt: 'A travel photo from one of my trips',
     tint: 'bg-ai-soft',
   },
 ]
@@ -34,7 +37,7 @@ export default function Interests() {
               media={
                 <MediaSlot
                   src={item.photo}
-                  alt={item.title}
+                  alt={item.alt}
                   placeholder="Photo coming soon"
                   tint={item.tint}
                   className="aspect-[4/3]"
