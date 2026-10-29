@@ -109,10 +109,10 @@ export default function Hero() {
             />
             <img
               src="/assets/me-hero.jpg"
-              alt="Marques Mar smiling at an outdoor café table"
+              alt="Marques Mar smiling outdoors in a grey blazer and black turtleneck"
               width={900}
-              height={1200}
-              className="relative block w-full aspect-[4/5] object-cover object-[50%_20%] rounded-t-pill rounded-b-[24px] border-[3px] border-ink shadow-2 bg-sunken"
+              height={1125}
+              className="relative block w-full aspect-[4/5] object-cover object-center rounded-t-pill rounded-b-[24px] border-[3px] border-ink shadow-2 bg-sunken"
             />
           </motion.div>
         </div>

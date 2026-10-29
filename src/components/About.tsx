@@ -13,7 +13,7 @@ export default function About() {
           <div aria-hidden="true" className="absolute inset-0 translate-x-s3 translate-y-s3 rounded-card bg-accent" />
           <MediaSlot
             src="/assets/me-about.jpg"
-            alt="Marques Mar"
+            alt="Marques Mar smiling at an outdoor café table"
             placeholder="Photo coming soon"
             tint="bg-sunken"
             className="relative aspect-[4/5] rounded-card border-[3px] border-ink"
