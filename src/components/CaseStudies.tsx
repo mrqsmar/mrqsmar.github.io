@@ -1,4 +1,4 @@
-import { Card, CategoryPill, Reveal, Section, categories, type Category } from './ui'
+import { Card, CategoryPill, CountUp, Reveal, Section, categories, type Category } from './ui'
 
 interface CaseStudy {
   category: Category
@@ -62,7 +62,7 @@ export default function CaseStudies() {
         {cases.map((c, i) => {
           const cat = categories[c.category]
           return (
-            <Reveal key={c.href} delay={0.08 * (i % 2)} className="h-full">
+            <Reveal key={c.href} index={i % 2} className="h-full">
               <Card
                 media={<div className={`h-2 ${cat.bar}`} aria-hidden="true" />}
                 meta={
@@ -76,7 +76,9 @@ export default function CaseStudies() {
                 linkLabel="Read case study"
               >
                 <div>
-                  <p className={`font-display text-40 md:text-64 font-semibold tracking-[-0.03em] ${cat.ink}`}>{c.metric}</p>
+                  <p className={`font-display text-40 md:text-64 font-semibold tracking-[-0.03em] ${cat.ink}`}>
+                    <CountUp value={c.metric} />
+                  </p>
                   <p className="mt-s1 text-14 text-muted">{c.metricLabel}</p>
                 </div>
                 <p className="text-16 text-ink">{c.summary}</p>

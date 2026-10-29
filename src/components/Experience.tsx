@@ -7,10 +7,10 @@ const tools = ['SQL', 'Python', 'Tableau', 'Figma', 'Jira', 'Postman', 'Confluen
 // Roles shown before "Show earlier roles".
 const VISIBLE_ROLES = 3
 
-function Role({ role, current, delay }: { role: ExperienceRole; current: boolean; delay: number }) {
+function Role({ role, current }: { role: ExperienceRole; current: boolean }) {
   return (
     <li>
-      <Reveal delay={delay} className="relative grid md:grid-cols-[180px_1fr] md:gap-s5">
+      <Reveal className="relative grid md:grid-cols-[180px_1fr] md:gap-s5">
         <div className="hidden md:block pt-s5 text-right">
           <p className="text-14 font-semibold text-ink">{role.dates}</p>
           <p className="text-14 text-subtle">{role.location}</p>
@@ -79,10 +79,10 @@ export default function Experience() {
     >
       <ol className="max-w-[960px]">
         {recent.map((role, i) => (
-          <Role key={role.dates} role={role} current={i === 0} delay={0.05 * i} />
+          <Role key={role.dates} role={role} current={i === 0} />
         ))}
         {showEarlier &&
-          earlier.map((role, i) => <Role key={role.dates} role={role} current={false} delay={0.05 * i} />)}
+          earlier.map((role) => <Role key={role.dates} role={role} current={false} />)}
       </ol>
 
       {earlier.length > 0 && (
@@ -91,7 +91,7 @@ export default function Experience() {
             type="button"
             onClick={() => setShowEarlier((v) => !v)}
             aria-expanded={showEarlier}
-            className="inline-flex items-center gap-s2 rounded-pill border-2 border-ink px-s4 py-s2 text-16 font-semibold text-ink hover:bg-ink hover:text-bg transition-colors"
+            className="btn btn-secondary btn-sm"
           >
             {showEarlier ? 'Hide earlier roles' : `Show earlier roles (${earlier.length})`}
             <span aria-hidden="true" className={`transition-transform ${showEarlier ? 'rotate-180' : ''}`}>↓</span>

@@ -1,19 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -357,17 +342,15 @@ export default function MedicineCabinetDetail() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-emerald-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -402,11 +385,9 @@ export default function MedicineCabinetDetail() {
             </p>
             <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
               {screenshots.map((s, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={s.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.08 * i }}
                   className="flex flex-col items-center shrink-0 snap-start"
                   style={{ width: '180px' }}
                 >
@@ -421,7 +402,7 @@ export default function MedicineCabinetDetail() {
                   </div>
                   <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-0.5">{s.label}</span>
                   <span className="text-[0.65rem] text-slate-500 text-center leading-tight">{s.desc}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -463,18 +444,16 @@ export default function MedicineCabinetDetail() {
             <h3 className="text-sm font-bold text-white mb-4">11 Complaints from Real Users</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
               {complaints.map((c, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.05 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-4"
                 >
                   <span className="inline-block text-[0.6rem] font-bold uppercase tracking-widest text-amber-400 bg-amber-500/[0.1] border border-amber-500/20 rounded-full px-2 py-0.5 mb-3">
                     {c.category}
                   </span>
                   <p className="text-sm text-slate-300 italic leading-relaxed">&ldquo;{c.quote}&rdquo;</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
 
@@ -485,11 +464,9 @@ export default function MedicineCabinetDetail() {
             </p>
             <div className="space-y-3 mb-14">
               {nielsenHeuristics.map((h, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={h.num}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.04 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
@@ -515,7 +492,7 @@ export default function MedicineCabinetDetail() {
                       <p className="text-xs text-slate-400 leading-relaxed">{h.v2}</p>
                     </div>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
 
@@ -535,11 +512,9 @@ export default function MedicineCabinetDetail() {
               </div>
               <div className="flex gap-5 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
                 {v1Screens.map((s, i) => (
-                  <motion.div
+                  <Reveal
+                    index={i}
                     key={s.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.08 * i }}
                     className="flex flex-col items-center shrink-0 snap-start"
                     style={{ width: '170px' }}
                   >
@@ -554,7 +529,7 @@ export default function MedicineCabinetDetail() {
                     </div>
                     <span className="text-xs font-bold text-rose-400 uppercase tracking-wider mb-0.5">{s.label}</span>
                     <span className="text-[0.62rem] text-slate-500 text-center leading-tight">{s.desc}</span>
-                  </motion.div>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -567,11 +542,9 @@ export default function MedicineCabinetDetail() {
               </div>
               <div className="flex gap-5 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory">
                 {v2Screens.map((s, i) => (
-                  <motion.div
+                  <Reveal
+                    index={i}
                     key={s.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.08 * i }}
                     className="flex flex-col items-center shrink-0 snap-start"
                     style={{ width: '170px' }}
                   >
@@ -586,7 +559,7 @@ export default function MedicineCabinetDetail() {
                     </div>
                     <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-0.5">{s.label}</span>
                     <span className="text-[0.62rem] text-slate-500 text-center leading-tight">{s.desc}</span>
-                  </motion.div>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -604,17 +577,15 @@ export default function MedicineCabinetDetail() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {problems.map((p, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={p.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <div className="text-2xl mb-3">{p.icon}</div>
                   <h3 className="text-sm font-bold text-white mb-2">{p.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{p.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -632,11 +603,9 @@ export default function MedicineCabinetDetail() {
             <div className="relative pl-8 space-y-6">
               <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-emerald-500/60 to-emerald-500/10" />
               {origin.map((step, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={step.phase}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   <div className="absolute -left-8 top-0.5 w-[22px] h-[22px] rounded-full bg-navy-800 border-2 border-emerald-500/60 flex items-center justify-center">
@@ -645,7 +614,7 @@ export default function MedicineCabinetDetail() {
                   <p className="text-[0.65rem] font-bold text-emerald-400 uppercase tracking-wider mb-0.5">{step.phase}</p>
                   <p className="text-sm font-semibold text-white mb-1">{step.label}</p>
                   <p className="text-sm text-slate-400 leading-relaxed">{step.detail}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -662,11 +631,9 @@ export default function MedicineCabinetDetail() {
             </p>
             <div className="space-y-6">
               {features.map((f, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={f.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className={`${f.bg} border ${f.border} rounded-xl p-6`}
                 >
                   <div className="flex items-center gap-3 mb-3">
@@ -696,7 +663,7 @@ export default function MedicineCabinetDetail() {
                       <p className="text-xs text-slate-400 leading-relaxed">{f.technical}</p>
                     </div>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -745,16 +712,14 @@ export default function MedicineCabinetDetail() {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {designPrinciples.map((d, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={d.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-emerald-400 mb-2">{d.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{d.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

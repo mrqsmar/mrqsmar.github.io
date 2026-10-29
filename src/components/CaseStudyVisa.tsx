@@ -1,22 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-/* ------------------------------------------------------------------ */
-/*  Reusable scroll-reveal wrapper                                     */
-/* ------------------------------------------------------------------ */
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -218,17 +200,15 @@ export default function CaseStudyVisa() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-indigo-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -272,11 +252,9 @@ export default function CaseStudyVisa() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {categories.map((cat, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={cat.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className={`${cat.bg} border ${cat.border} rounded-xl p-5`}
                 >
                   <div className="flex items-center gap-2 mb-2">
@@ -291,7 +269,7 @@ export default function CaseStudyVisa() {
                     <span className="font-medium text-slate-400">Examples: </span>
                     {cat.examples}
                   </p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -466,18 +444,16 @@ export default function CaseStudyVisa() {
             <SectionTitle>My Cross-functional Role</SectionTitle>
             <div className="grid sm:grid-cols-2 gap-4">
               {roles.map((r, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={r.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-wider mb-3">
                     {r.title}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{r.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -491,11 +467,9 @@ export default function CaseStudyVisa() {
               {/* Vertical line */}
               <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-indigo-500/60 to-indigo-500/10" />
               {rolloutSteps.map((step, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   {/* Dot */}
@@ -503,7 +477,7 @@ export default function CaseStudyVisa() {
                     <span className="text-[0.6rem] font-bold text-indigo-400">{i + 1}</span>
                   </div>
                   <p className="text-sm text-slate-300">{step}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

@@ -37,6 +37,54 @@ function useActiveSection(enabled: boolean) {
   return active
 }
 
+type Theme = 'light' | 'dark'
+
+const darkQuery = () => window.matchMedia('(prefers-color-scheme: dark)')
+
+// The saved choice wins; without one, follow the system setting.
+const currentTheme = (): Theme => {
+  const set = document.documentElement.dataset.theme
+  return set === 'light' || set === 'dark' ? set : darkQuery().matches ? 'dark' : 'light'
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState<Theme>(currentTheme)
+
+  useEffect(() => {
+    const mq = darkQuery()
+    const onChange = () => setTheme(currentTheme())
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const toggle = () => {
+    const next: Theme = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    try {
+      localStorage.setItem('theme', next)
+    } catch {
+      // Storage blocked: the choice still applies for this visit.
+    }
+    setTheme(next)
+  }
+
+  const next = theme === 'dark' ? 'light' : 'dark'
+  return (
+    <button type="button" onClick={toggle} aria-label={`Switch to ${next} theme`} title={`Switch to ${next} theme`} className="btn btn-ghost !p-s2">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        {theme === 'dark' ? (
+          <>
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </>
+        ) : (
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+        )}
+      </svg>
+    </button>
+  )
+}
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -86,28 +134,32 @@ export default function Nav() {
           MM<span className="text-accent">.</span>
         </a>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] p-s2"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className={`block w-6 h-0.5 bg-ink transition-all duration-300 ${
-                open && i === 0 ? 'rotate-45 translate-y-[7px]' : ''
-              } ${open && i === 1 ? 'opacity-0' : ''} ${
-                open && i === 2 ? '-rotate-45 -translate-y-[7px]' : ''
-              }`}
-            />
-          ))}
-        </button>
+        <div className="flex items-center gap-s1 md:order-last md:ml-s2">
+          <ThemeToggle />
+
+          {/* Mobile toggle */}
+          <button
+            className="md:hidden flex flex-col gap-[5px] p-s2 rounded-pill hover:bg-sunken active:bg-line transition-colors"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className={`block w-6 h-0.5 bg-ink transition-all duration-300 ${
+                  open && i === 0 ? 'rotate-45 translate-y-[7px]' : ''
+                } ${open && i === 1 ? 'opacity-0' : ''} ${
+                  open && i === 2 ? '-rotate-45 -translate-y-[7px]' : ''
+                }`}
+              />
+            ))}
+          </button>
+        </div>
 
         {/* Links */}
         <ul
-          className={`md:flex md:items-center md:gap-s1 ${
+          className={`md:flex md:items-center md:gap-s1 md:ml-auto ${
             open
               ? 'flex flex-col gap-s1 absolute top-full left-0 right-0 bg-bg border-b border-line shadow-1 p-s3'
               : 'hidden'
@@ -122,7 +174,7 @@ export default function Nav() {
                   onClick={(e) => navigateHome(e, l.id)}
                   aria-current={active ? 'location' : undefined}
                   className={`block rounded-pill px-s3 py-s2 text-16 font-medium transition-colors ${
-                    active ? 'bg-accent2/50 text-ink font-semibold' : 'text-muted hover:text-ink hover:bg-sunken'
+                    active ? 'bg-accent2/50 text-ink font-semibold' : 'text-muted hover:text-ink hover:bg-sunken active:bg-line'
                   }`}
                 >
                   {l.label}

@@ -6,6 +6,13 @@
     <title>Portfolio | Technical PM – ML Payments & AI Products</title>
     <meta name="description" content="Marques Mar — Product Manager, Payments at Varo. Previously Visa.">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script>
+      // Apply the saved light/dark choice before first paint.
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..800,0..100,0..1&display=swap">

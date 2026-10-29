@@ -6,6 +6,7 @@ interface Project {
   title: string
   problem: string
   stack: string[]
+  why: string
   href: string
   media: ReactNode
 }
@@ -40,6 +41,7 @@ const projects: Project[] = [
     problem:
       'When debit approval rates move, PMs wait on analysts to explain why; this copilot answers in plain English with numbers computed by tested tools.',
     stack: ['Claude API', 'Python', 'DuckDB', 'Streamlit'],
+    why: 'Answers in minutes, not days.',
     href: '/projects/debit-copilot',
     media: (
       <MediaSlot
@@ -58,6 +60,7 @@ const projects: Project[] = [
     problem:
       'Professional coaching costs $75–200 an hour, so most people never get it; Protégé offers voice coaching cloned from real coaches.',
     stack: ['VAPI', 'ElevenLabs', 'n8n', 'Anthropic API', 'React'],
+    why: "Coaching shouldn't cost $200/hr.",
     href: '/projects/protege',
     media: <VoiceMock />,
   },
@@ -67,6 +70,7 @@ const projects: Project[] = [
     problem:
       'My two aunts juggle medications for dialysis and memory loss, and no reminder app was built for elderly, non-technical users.',
     stack: ['Expo', 'React Native', 'Python', 'Claude Code'],
+    why: 'My aunts needed a simpler app.',
     href: '/projects/medicine-cabinet',
     media: (
       <MediaSlot
@@ -92,11 +96,12 @@ export default function Products() {
     >
       <div className="grid gap-s4 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p, i) => (
-          <Reveal key={p.href} delay={0.08 * i} className="h-full">
+          <Reveal key={p.href} index={i} className="h-full">
             <Card
               media={p.media}
               meta={<CategoryPill category={p.category} />}
               title={p.title}
+              why={p.why}
               footer={p.stack.map((s) => <Tag key={s}>{s}</Tag>)}
               href={p.href}
               linkLabel="View project"

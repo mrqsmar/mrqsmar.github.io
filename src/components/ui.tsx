@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion'
-import { useState, type ReactNode } from 'react'
-import { useInView } from './useInView'
+import { useEffect, useRef, useState, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react'
+import { prefersReducedMotion } from '../motion'
 
 /* ── Categories ──────────────────────────────────────────────────── */
 
@@ -46,12 +45,12 @@ export function Section({ id, tone, eyebrow, title, intro, aside, children }: Se
     <section id={id} data-section className={`${tones[tone]} text-ink scroll-mt-[64px] py-s6 md:py-s7`}>
       <div className="max-w-[1200px] mx-auto px-s3 sm:px-s4">
         <header className="mb-s5 md:mb-s6 flex flex-col md:flex-row md:items-end md:justify-between gap-s4">
-          <div className="max-w-[40rem]">
+          <Reveal className="max-w-[40rem]">
             <p className="text-14 font-semibold uppercase tracking-[0.14em] text-accent mb-s2">{eyebrow}</p>
             <h2 className="font-semibold text-40 md:text-64 text-ink">{title}</h2>
             {intro && <p className="mt-s3 text-20 text-muted">{intro}</p>}
-          </div>
-          {aside}
+          </Reveal>
+          {aside && <Reveal index={1}>{aside}</Reveal>}
         </header>
         {children}
       </div>
@@ -59,20 +58,77 @@ export function Section({ id, tone, eyebrow, title, intro, aside, children }: Se
   )
 }
 
-/* ── Reveal on scroll ────────────────────────────────────────────── */
+/* ── Reveal on scroll ──────────────────────────────────────────────
+ * Fades and rises 16px when scrolled into view (CSS in index.css,
+ * observer in motion.ts). `index` staggers siblings by 60ms each.
+ */
 
-export function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
-  const [ref, inView] = useInView()
+type RevealTag = 'div' | 'li' | 'p' | 'ul' | 'ol' | 'span' | 'h1' | 'h2' | 'h3' | 'section' | 'a'
+
+interface RevealProps extends HTMLAttributes<HTMLElement> {
+  as?: RevealTag
+  index?: number
+  children: ReactNode
+}
+
+export function Reveal({ as: Tag = 'div', index = 0, style, children, ...rest }: RevealProps) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
-      className={className}
-    >
+    <Tag data-reveal="" style={{ ...style, '--reveal-i': index } as CSSProperties} {...rest}>
       {children}
-    </motion.div>
+    </Tag>
+  )
+}
+
+/* ── Count-up ─────────────────────────────────────────────────────
+ * Counts the number in a stat like "$1M/week" or "96%" up from zero,
+ * once, when it first scrolls into view. Screen readers get the final
+ * value; reduced motion shows it immediately.
+ */
+
+const DURATION = 900
+
+export function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !match || prefersReducedMotion()) return
+    const [, prefix, num, suffix] = match
+    if (prefix.includes('#')) return // a rank, not a quantity
+    const target = parseFloat(num)
+    // Small whole numbers count in tenths so "$1M" doesn't just jump 0 → 1.
+    const decimals = num.includes('.') ? num.split('.')[1].length : target < 10 ? 1 : 0
+    let frame = 0
+
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      io.disconnect()
+      const start = performance.now()
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / DURATION, 1)
+        const eased = 1 - Math.pow(1 - t, 3)
+        el.textContent = t < 1 ? prefix + (target * eased).toFixed(decimals) + suffix : value
+        if (t < 1) frame = requestAnimationFrame(tick)
+      }
+      el.textContent = prefix + (0).toFixed(decimals) + suffix
+      frame = requestAnimationFrame(tick)
+    })
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(frame)
+      el.textContent = value
+    }
+  }, [value])
+
+  return (
+    <>
+      <span ref={ref} aria-hidden="true" className="tabular-nums">
+        {value}
+      </span>
+      <span className="sr-only">{value}</span>
+    </>
   )
 }
 
@@ -152,13 +208,15 @@ interface CardProps {
   footer?: ReactNode
   href?: string
   linkLabel?: string
+  /** One line revealed under the title on hover or focus (always shown on touch). */
+  why?: string
 }
 
-export function Card({ media, meta, title, subtitle, children, footer, href, linkLabel }: CardProps) {
+export function Card({ media, meta, title, subtitle, children, footer, href, linkLabel, why }: CardProps) {
   return (
     <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-1 transition-all duration-200 ${
-        href ? 'hover:-translate-y-1 hover:shadow-2 focus-within:shadow-2' : ''
+      className={`group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-1 ${
+        href ? 'card-link' : ''
       }`}
     >
       {media}
@@ -167,6 +225,12 @@ export function Card({ media, meta, title, subtitle, children, footer, href, lin
         <div>
           <h3 className="font-display text-28 font-semibold text-ink">{title}</h3>
           {subtitle && <p className="mt-s1 text-16 text-muted">{subtitle}</p>}
+          {why && (
+            <p className="card-why mt-s1 text-14 text-accent font-semibold [@media(hover:hover)]:truncate">
+              <span className="sr-only">Why I built this: </span>
+              {why}
+            </p>
+          )}
         </div>
         {children}
         {(footer || href) && (

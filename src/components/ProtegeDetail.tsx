@@ -1,19 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -240,11 +225,9 @@ export default function ProtegeDetail() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
               {companyContext.map((c, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={c.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.12 }}
                   className={`${c.bg} border ${c.border} rounded-xl p-5`}
                 >
                   <div className="flex items-center gap-3 mb-3">
@@ -254,7 +237,7 @@ export default function ProtegeDetail() {
                   </div>
                   <h3 className={`text-base font-bold ${c.tagColor} mb-2`}>{c.name}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{c.description}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
             <div className="bg-navy-800 border border-navy-600 rounded-xl p-5">
@@ -272,17 +255,15 @@ export default function ProtegeDetail() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-sky-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -300,17 +281,15 @@ export default function ProtegeDetail() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {problemPoints.map((p, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={p.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <div className="text-2xl mb-3">{p.icon}</div>
                   <h3 className="text-sm font-bold text-white mb-2">{p.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{p.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -356,11 +335,9 @@ export default function ProtegeDetail() {
             </p>
             <div className="space-y-6">
               {contributions.map((c, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={c.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.08 * i }}
                   className={`${c.bg} border ${c.border} rounded-xl p-6`}
                 >
                   <div className="flex items-center gap-3 mb-4">
@@ -378,7 +355,7 @@ export default function ProtegeDetail() {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -400,11 +377,9 @@ export default function ProtegeDetail() {
                 { step: '4', label: 'Voice response', detail: 'ElevenLabs converts the LLM\'s text response into a natural-sounding voice — cloned from the actual expert. The user hears a real-sounding coach, not a robotic text-to-speech system.' },
                 { step: '5', label: 'Session logging', detail: 'n8n logs the interaction to the database. The knowledge base updates with any new insights. The next time the user returns, the system knows exactly where to resume.' },
               ].map((s, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={s.step}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   <div className="absolute -left-8 top-0.5 w-[22px] h-[22px] rounded-full bg-navy-800 border-2 border-sky-500/60 flex items-center justify-center">
@@ -412,7 +387,7 @@ export default function ProtegeDetail() {
                   </div>
                   <p className="text-sm font-semibold text-white mb-1">{s.label}</p>
                   <p className="text-sm text-slate-400 leading-relaxed">{s.detail}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -480,16 +455,14 @@ export default function ProtegeDetail() {
                   body: 'Shipped multiple production-grade systems on a 3-person team — balancing code quality with delivery speed in a real startup context with real product goals.',
                 },
               ].map((d, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={d.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-sky-400 mb-2">{d.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{d.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

@@ -32,7 +32,7 @@ export default function Interests() {
     <Section id="interests" tone="tint" eyebrow="05 · Off the clock" title="Interests">
       <div className="grid gap-s4 md:grid-cols-3">
         {interests.map((item, i) => (
-          <Reveal key={item.title} delay={0.08 * i} className="h-full">
+          <Reveal key={item.title} index={i} className="h-full">
             <Card
               media={
                 <MediaSlot

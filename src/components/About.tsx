@@ -20,7 +20,7 @@ export default function About() {
           />
         </Reveal>
 
-        <Reveal delay={0.1}>
+        <Reveal index={1}>
           <p className="font-display text-20 md:text-28 text-ink [font-variation-settings:'SOFT'_50]">{ABOUT_PARAGRAPH}</p>
 
           <div className="mt-s5 pt-s4 border-t border-line">
