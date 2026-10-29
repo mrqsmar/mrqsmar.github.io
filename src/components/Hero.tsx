@@ -145,8 +145,8 @@ export default function Hero() {
           {...fadeUp(0.45)}
           className="text-lg text-slate-500 max-w-[560px] mx-auto mb-10 leading-relaxed"
         >
-          Building ML-driven payment optimization &amp; AI products at Visa that move billions in
-          transaction volume.
+          Building payments &amp; AI-powered banking products at Varo Bank, after years shipping
+          ML-driven payment optimization at Visa.
         </motion.p>
         <motion.div {...fadeUp(0.6)} className="flex gap-4 justify-center flex-wrap">
           <a
