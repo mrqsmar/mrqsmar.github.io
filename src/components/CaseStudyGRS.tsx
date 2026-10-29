@@ -1,22 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-/* ------------------------------------------------------------------ */
-/*  Reusable scroll-reveal wrapper                                     */
-/* ------------------------------------------------------------------ */
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -128,17 +110,15 @@ export default function CaseStudyGRS() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-amber-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -169,16 +149,14 @@ export default function CaseStudyGRS() {
             <SectionTitle>Value to Visa</SectionTitle>
             <div className="space-y-3">
               {valueItems.map((item, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="flex items-start gap-3 bg-amber-500/[0.04] border border-amber-500/20 rounded-xl p-4"
                 >
                   <span className="mt-1 block w-2 h-2 rounded-full bg-amber-500/60 shrink-0" />
                   <p className="text-sm text-slate-300">{item}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -195,11 +173,9 @@ export default function CaseStudyGRS() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {issuerTpaFlowItems.map((item, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={i}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <div className="flex items-center gap-2 mb-3">
@@ -208,7 +184,7 @@ export default function CaseStudyGRS() {
                     </span>
                   </div>
                   <p className="text-sm text-slate-400 leading-relaxed">{item}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -231,11 +207,9 @@ export default function CaseStudyGRS() {
               {/* Vertical line */}
               <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-amber-500/60 to-amber-500/10" />
               {phase1Steps.map((step, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   {/* Dot */}
@@ -246,7 +220,7 @@ export default function CaseStudyGRS() {
                     <p className="text-sm font-semibold text-white mb-1">{step.title}</p>
                     <p className="text-sm text-slate-400">{step.desc}</p>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
 
@@ -270,16 +244,14 @@ export default function CaseStudyGRS() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {futureMetrics.map((m, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={m.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-amber-400 mb-2">{m.label}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{m.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

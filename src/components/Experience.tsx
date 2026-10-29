@@ -1,80 +1,103 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-import { experienceData } from '../data/experience'
+import { useState } from 'react'
+import { experienceData, type ExperienceRole } from '../data/experience'
+import { Card, NeutralPill, Reveal, Section, Tag } from './ui'
 
-const accentColors = [
-  'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
-  'bg-blue-500/15 text-blue-400 border-blue-500/20',
-  'bg-violet-500/15 text-violet-400 border-violet-500/20',
-  'bg-amber-500/15 text-amber-400 border-amber-500/20',
-]
+const tools = ['SQL', 'Python', 'Tableau', 'Figma', 'Jira', 'Postman', 'Confluence', 'Git']
 
-const dotColors = [
-  'border-emerald-400',
-  'border-blue-400',
-  'border-violet-400',
-  'border-amber-400',
-]
+// Roles shown before "Show earlier roles".
+const VISIBLE_ROLES = 3
+
+function Role({ role, current }: { role: ExperienceRole; current: boolean }) {
+  return (
+    <li>
+      <Reveal className="relative grid md:grid-cols-[180px_1fr] md:gap-s5">
+        <div className="hidden md:block pt-s5 text-right">
+          <p className="text-14 font-semibold text-ink">{role.dates}</p>
+          <p className="text-14 text-subtle">{role.location}</p>
+        </div>
+
+        <div className="relative pl-s5 pb-s5">
+          <span className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-line" aria-hidden="true" />
+          <span
+            className={`absolute left-0 top-[44px] h-4 w-4 rounded-full border-[3px] ${current ? 'border-accent bg-accent' : 'border-line-strong bg-bg'}`}
+            aria-hidden="true"
+          />
+          <Card
+            meta={
+              <>
+                <span className="text-14 font-semibold text-ink md:hidden">{role.dates}</span>
+                {current && <NeutralPill>Current role</NeutralPill>}
+              </>
+            }
+            title={role.title}
+            subtitle={
+              <>
+                <strong className="font-semibold text-ink">{role.company}</strong>
+                {role.organization && <> · {role.organization}</>}
+                <span className="md:hidden"> · {role.location}</span>
+              </>
+            }
+            footer={role.skills.map((s) => <Tag key={s}>{s}</Tag>)}
+          >
+            <ul className="space-y-s2">
+              {role.bullets.slice(0, 3).map((b) => (
+                <li key={b} className="relative pl-s3 text-16 text-muted before:absolute before:left-0 before:top-[0.6em] before:h-[6px] before:w-[6px] before:rounded-[1px] before:bg-accent">
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+      </Reveal>
+    </li>
+  )
+}
 
 export default function Experience() {
-  const [ref, inView] = useInView()
+  const [showEarlier, setShowEarlier] = useState(false)
+  const recent = experienceData.slice(0, VISIBLE_ROLES)
+  const earlier = experienceData.slice(VISIBLE_ROLES)
 
   return (
-    <section id="experience" className="py-24 bg-navy-800">
-      <div className="max-w-[1100px] mx-auto px-6" ref={ref}>
-        <h2 className="text-3xl font-bold text-white text-center mb-14 section-title-bar">
-          Experience
-        </h2>
-
-        <div className="relative pl-8">
-          {/* Timeline line */}
-          <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-emerald-500 via-blue-500 via-violet-500 to-amber-500" />
-
-          {experienceData.map((role, i) => (
-            <motion.div
-              key={role.dates}
-              initial={{ opacity: 0, y: 32 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
-              className="relative mb-12 last:mb-0"
-            >
-              {/* Dot */}
-              <div className={`absolute -left-8 top-2 w-4 h-4 rounded-full bg-navy-800 border-[3px] z-10 ${dotColors[i % dotColors.length]}`} />
-
-              <div className="bg-navy-700 border border-navy-600 rounded-xl p-7 hover:border-blue-500/30 hover:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all">
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-white mb-1">{role.title}</h3>
-                  <span className="text-sm font-semibold text-blue-400 mr-3">
-                    {role.company}
-                  </span>
-                  <span className="text-sm text-slate-500">{role.location}</span>
-                  <span className="text-sm text-slate-500 ml-3">{role.dates}</span>
-                </div>
-                <ul className="space-y-2.5">
-                  {role.bullets.map((bullet, j) => (
-                    <li
-                      key={j}
-                      className="relative pl-5 text-[0.95rem] text-slate-400 leading-relaxed before:absolute before:left-0 before:top-[10px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-blue-500"
-                    >
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-navy-600">
-                  {role.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className={`text-xs font-medium px-3 py-1 rounded-full border ${accentColors[i % accentColors.length]}`}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+    <Section
+      id="experience"
+      tone="dark"
+      eyebrow="03 · Experience"
+      title="Where I've worked"
+      aside={
+        <div className="md:max-w-[22rem]">
+          <p className="text-14 font-semibold uppercase tracking-[0.14em] text-subtle mb-s2">Toolkit</p>
+          <ul className="flex flex-wrap gap-s2" aria-label="Tools I use">
+            {tools.map((t) => (
+              <li key={t}>
+                <Tag>{t}</Tag>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </section>
+      }
+    >
+      <ol className="max-w-[960px]">
+        {recent.map((role, i) => (
+          <Role key={role.dates} role={role} current={i === 0} />
+        ))}
+        {showEarlier &&
+          earlier.map((role) => <Role key={role.dates} role={role} current={false} />)}
+      </ol>
+
+      {earlier.length > 0 && (
+        <div className="md:pl-[calc(180px+var(--space-5))]">
+          <button
+            type="button"
+            onClick={() => setShowEarlier((v) => !v)}
+            aria-expanded={showEarlier}
+            className="btn btn-secondary btn-sm"
+          >
+            {showEarlier ? 'Hide earlier roles' : `Show earlier roles (${earlier.length})`}
+            <span aria-hidden="true" className={`transition-transform ${showEarlier ? 'rotate-180' : ''}`}>↓</span>
+          </button>
+        </div>
+      )}
+    </Section>
   )
 }

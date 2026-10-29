@@ -1,22 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-/* ------------------------------------------------------------------ */
-/*  Reusable scroll-reveal wrapper                                     */
-/* ------------------------------------------------------------------ */
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 /* ------------------------------------------------------------------ */
 /*  Section heading helper                                             */
@@ -240,17 +222,15 @@ export default function CaseStudyVisaBanking() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-violet-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -334,11 +314,9 @@ export default function CaseStudyVisaBanking() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {mvpFeatures.map((f, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={f.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className={`${f.bg} border ${f.border} rounded-xl p-5`}
                 >
                   <div className="flex items-center gap-2 mb-2">
@@ -349,7 +327,7 @@ export default function CaseStudyVisaBanking() {
                   </div>
                   <h3 className={`text-base font-semibold text-white mb-2`}>{f.title}</h3>
                   <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -361,18 +339,16 @@ export default function CaseStudyVisaBanking() {
             <SectionTitle>UI requirements — designed for accessibility and brand alignment</SectionTitle>
             <div className="grid sm:grid-cols-3 gap-4">
               {uiRequirements.map((req, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={req.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-violet-400 uppercase tracking-wider mb-3">
                     {req.title}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{req.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -403,11 +379,9 @@ export default function CaseStudyVisaBanking() {
             <div className="relative pl-8 space-y-6 mb-8">
               <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-violet-500/60 to-violet-500/10" />
               {dagSteps.map((s, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={s.step}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   <div className="absolute -left-8 top-0.5 w-[22px] h-[22px] rounded-full bg-navy-800 border-2 border-violet-500/60 flex items-center justify-center">
@@ -415,7 +389,7 @@ export default function CaseStudyVisaBanking() {
                   </div>
                   <p className="text-sm text-slate-200 font-medium">{s.label}</p>
                   <p className="text-xs text-slate-500 mt-1">{s.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
 
@@ -440,18 +414,16 @@ export default function CaseStudyVisaBanking() {
             </p>
             <div className="space-y-4">
               {guardrails.map((g, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={g.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className={`${g.bg} border ${g.border} rounded-xl p-5`}
                 >
                   <h3 className={`text-sm font-bold ${g.accent} uppercase tracking-wider mb-2`}>
                     {g.title}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{g.desc}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -463,18 +435,16 @@ export default function CaseStudyVisaBanking() {
             <SectionTitle>My role across the product lifecycle</SectionTitle>
             <div className="grid sm:grid-cols-2 gap-4">
               {roles.map((r, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={r.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-violet-400 uppercase tracking-wider mb-3">
                     {r.title}
                   </h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{r.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

@@ -1,176 +1,98 @@
-import { motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { Reveal, navigate } from './ui'
 
-const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: 'easeOut' },
-})
+const proofPoints = [
+  { lead: '$1M/week', rest: 'recovered', dot: 'bg-payments' },
+  { lead: 'LLM assistant', rest: 'shipped to production', dot: 'bg-ai' },
+  { lead: '2 PMs', rest: 'managed', dot: 'bg-fintech' },
+]
 
-interface Particle {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  r: number
-  opacity: number
-}
+const COPILOT_PATH = '/projects/debit-copilot'
 
-function useParticleCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = ref.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animId: number
-    let particles: Particle[] = []
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * devicePixelRatio
-      canvas.height = canvas.offsetHeight * devicePixelRatio
-      ctx.scale(devicePixelRatio, devicePixelRatio)
-    }
-
-    const init = () => {
-      resize()
-      const w = canvas.offsetWidth
-      const h = canvas.offsetHeight
-      const count = Math.floor((w * h) / 12000)
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.4 + 0.1,
-      }))
-    }
-
-    const draw = () => {
-      const w = canvas.offsetWidth
-      const h = canvas.offsetHeight
-      ctx.clearRect(0, 0, w, h)
-
-      for (const p of particles) {
-        p.x += p.vx
-        p.y += p.vy
-        if (p.x < 0) p.x = w
-        if (p.x > w) p.x = 0
-        if (p.y < 0) p.y = h
-        if (p.y > h) p.y = 0
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(96, 165, 250, ${p.opacity})`
-        ctx.fill()
-      }
-
-      // Draw lines between nearby particles
-      const maxDist = 120
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < maxDist) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - dist / maxDist)})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        }
-      }
-
-      animId = requestAnimationFrame(draw)
-    }
-
-    init()
-    draw()
-    window.addEventListener('resize', init)
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', init)
-    }
-  }, [])
-
-  return ref
-}
 
 export default function Hero() {
-  const canvasRef = useParticleCanvas()
-
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[120px] pb-20"
-    >
-      {/* Animated particle background */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
+    <section id="hero" className="relative overflow-hidden pt-[128px] pb-s6 md:pt-[160px] md:pb-s7">
+      <div className="max-w-[1200px] mx-auto px-s3 sm:px-s4 grid gap-s6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] md:gap-s5 lg:gap-s6 items-center">
+        {/* Copy */}
+        <div>
+          <Reveal as="p" index={0} className="text-20 text-muted mb-s3">
+            Hi, I'm
+          </Reveal>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(59,130,246,0.12)_0%,transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_80%_20%,rgba(34,211,238,0.06)_0%,transparent_50%)]" />
-      </div>
-
-      <div className="relative z-10 text-center max-w-[1100px] mx-auto px-6">
-        <motion.p
-          {...fadeUp(0)}
-          className="text-sm font-medium text-blue-400 tracking-[2px] uppercase mb-4"
-        >
-          Hi, I'm
-        </motion.p>
-        <motion.h1
-          {...fadeUp(0.15)}
-          className="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white tracking-tight leading-[1.1] mb-4"
-        >
-          Marques Mar
-        </motion.h1>
-        <motion.p
-          {...fadeUp(0.3)}
-          className="text-[clamp(1rem,2.5vw,1.25rem)] font-medium text-slate-400 mb-6"
-        >
-          Technical PM&nbsp;&nbsp;|&nbsp;&nbsp;ML Payments &amp; AI Products
-        </motion.p>
-        <motion.p
-          {...fadeUp(0.45)}
-          className="text-lg text-slate-500 max-w-[560px] mx-auto mb-10 leading-relaxed"
-        >
-          Building payments &amp; AI-powered banking products at Varo Bank, after years shipping
-          ML-driven payment optimization at Visa.
-        </motion.p>
-        <motion.div {...fadeUp(0.6)} className="flex gap-4 justify-center flex-wrap">
-          <a
-            href="#case-studies"
-            className="inline-flex items-center px-8 py-3.5 rounded-lg text-sm font-semibold bg-blue-500 text-white shadow-[0_0_24px_rgba(59,130,246,0.3)] hover:bg-blue-600 hover:shadow-[0_0_32px_rgba(59,130,246,0.5)] hover:-translate-y-0.5 transition-all"
+          <Reveal
+            as="h1"
+            index={1}
+            className="font-display font-semibold text-ink text-[clamp(3.5rem,9vw,7.25rem)] leading-[0.95] tracking-[-0.035em] mb-s4"
           >
-            View Case Studies
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center px-8 py-3.5 rounded-lg text-sm font-semibold border border-navy-500 text-slate-200 hover:border-blue-500 hover:text-blue-400 hover:-translate-y-0.5 transition-all"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
-      </div>
+            Marques
+            <br />
+            Mar<span className="text-accent">.</span>
+          </Reveal>
 
-      {/* Scroll indicator */}
-      <motion.div
-        {...fadeUp(0.6)}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <div className="scroll-arrow" />
-      </motion.div>
+          <Reveal as="p" index={2} className="text-20 md:text-28 text-ink max-w-[30ch] mb-s3">
+            Product Manager, Payments at Varo. Previously Visa.
+          </Reveal>
+
+          <Reveal index={3} className="mb-s5">
+            <a
+              href={COPILOT_PATH}
+              onClick={(e) => navigate(e, COPILOT_PATH)}
+              className="group inline-flex items-center gap-s2 rounded-pill bg-accent2/30 border border-accent2 pl-s3 pr-s3 py-s1 text-14 text-ink hover:bg-accent2/60 active:bg-accent2/80 transition-colors"
+            >
+              <span className="h-2 w-2 rounded-full bg-payments" aria-hidden="true" />
+              <span>
+                Currently building: <strong className="font-semibold">Debit AI Copilot</strong>
+              </span>
+            </a>
+          </Reveal>
+
+          <Reveal index={4} className="flex flex-wrap gap-s3 mb-s5">
+            <a href="#work" className="btn btn-primary">
+              View case studies
+            </a>
+            <a href="#contact" className="btn btn-secondary">
+              Get in touch
+            </a>
+          </Reveal>
+
+          <Reveal as="ul" index={5} className="flex flex-wrap gap-s2" aria-label="Highlights">
+            {proofPoints.map((p) => (
+              <li
+                key={p.lead}
+                className="inline-flex items-center gap-s2 rounded-pill bg-surface border border-line shadow-1 px-s3 py-s2 text-14 text-muted"
+              >
+                <span className={`h-2.5 w-2.5 rounded-[3px] ${p.dot}`} aria-hidden="true" />
+                <span>
+                  <strong className="font-semibold text-ink">{p.lead}</strong> {p.rest}
+                </span>
+              </li>
+            ))}
+          </Reveal>
+        </div>
+
+        {/* Photo */}
+        <Reveal
+          index={2}
+          className="wobble-group relative w-full max-w-[300px] sm:max-w-[360px] md:max-w-[420px] mx-auto md:mr-0 mb-s4 md:mb-0"
+        >
+          {/* Offset accent shapes behind the photo */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 translate-x-[-20px] translate-y-[20px] md:translate-x-[-32px] md:translate-y-[32px] rounded-t-pill rounded-b-[24px] bg-accent2"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -top-s3 -right-s3 md:-top-s4 md:-right-s4 h-20 w-20 md:h-28 md:w-28 rounded-full bg-accent wobble-target"
+          />
+          <img
+            src="/assets/me-hero.jpg"
+            alt="Marques Mar smiling outdoors in a grey blazer and black turtleneck"
+            width={900}
+            height={1125}
+            className="relative block w-full aspect-[4/5] object-cover object-center rounded-t-pill rounded-b-[24px] border-[3px] border-ink shadow-2 bg-sunken"
+          />
+        </Reveal>
+      </div>
     </section>
   )
 }

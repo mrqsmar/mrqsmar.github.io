@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import './styles/tokens.css';
 
 @tailwind base;
 @tailwind components;
@@ -6,16 +6,39 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
-    @apply bg-navy-900 text-slate-200 font-sans overflow-x-hidden;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+    @apply overflow-x-hidden;
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 50, 'WONK' 1;
+    letter-spacing: -0.02em;
   }
 
   ::selection {
-    @apply bg-blue-500/30 text-white;
+    background: var(--color-accent-2);
+    color: var(--color-on-accent-2);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
   }
 }
 
@@ -24,23 +47,194 @@
     content: '';
     display: block;
     width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, theme('colors.blue.500'), theme('colors.violet.500'));
+    height: 4px;
+    background: var(--color-accent);
     @apply mx-auto mt-4 rounded-full;
   }
 }
 
-@keyframes bounce-arrow {
-  0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
-  40% { transform: rotate(45deg) translateY(8px); }
-  60% { transform: rotate(45deg) translateY(4px); }
+/* ── Interaction ──────────────────────────────────────────────────
+ * Everything that moves is opted in under no-preference, and the
+ * reduced-motion block at the end switches off anything left over.
+ */
+
+/* Scroll reveal: fade + rise 16px, staggered 60ms by --reveal-i.
+ * Uses the independent `translate` property so it never fights
+ * Tailwind's transform utilities. */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
 }
 
-.scroll-arrow {
-  width: 24px;
-  height: 24px;
-  border-right: 2px solid theme('colors.slate.500');
-  border-bottom: 2px solid theme('colors.slate.500');
-  transform: rotate(45deg);
-  animation: bounce-arrow 2s infinite;
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal]:not([data-in]) {
+    opacity: 0;
+  }
+
+  .js [data-reveal][data-in] {
+    animation: reveal-rise 500ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--reveal-i, 0) * 60ms);
+  }
+}
+
+/* Linked cards: lift 4px with a stronger shadow, and reveal the
+ * "why I built this" line under the title. */
+.card-link {
+  transition: box-shadow 200ms ease, translate 200ms ease;
+}
+
+.card-link:hover,
+.card-link:focus-within {
+  box-shadow: var(--shadow-2);
+}
+
+.card-why {
+  opacity: 0;
+  transition: opacity 200ms ease, translate 200ms ease;
+}
+
+.card-link:hover .card-why,
+.card-link:focus-within .card-why {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .card-why {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-link:hover,
+  .card-link:focus-within {
+    translate: 0 -4px;
+  }
+
+  .card-why {
+    translate: 0 -4px;
+  }
+
+  .card-link:hover .card-why,
+  .card-link:focus-within .card-why {
+    translate: 0 0;
+  }
+}
+
+/* Buttons: hover, keyboard focus and pressed states. */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border: 2px solid transparent;
+    border-radius: var(--radius-pill);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease,
+      translate 150ms ease;
+  }
+
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-bg), 0 0 0 5px var(--color-accent);
+  }
+
+  .btn-sm {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    box-shadow: var(--shadow-2);
+  }
+
+  .btn-primary:active {
+    background: color-mix(in srgb, var(--color-accent-hover) 85%, #000);
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    border-color: var(--color-text);
+    color: var(--color-text);
+    background: transparent;
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  .btn-secondary:active {
+    background: color-mix(in srgb, var(--color-text) 80%, var(--color-bg));
+    color: var(--color-bg);
+  }
+
+  .btn-ghost {
+    color: var(--color-text);
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    background: var(--color-surface-sunken);
+  }
+
+  .btn-ghost:active {
+    background: var(--color-border);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:hover {
+      translate: 0 -2px;
+    }
+
+    .btn:active {
+      translate: 0 1px;
+      transition-duration: 50ms;
+    }
+  }
+}
+
+/* Playful touch: the hero's accent circle wobbles once when the
+ * photo is hovered. One run per hover, never on a loop. */
+@keyframes wobble {
+  20% {
+    rotate: -10deg;
+    scale: 1.06;
+  }
+  45% {
+    rotate: 7deg;
+  }
+  70% {
+    rotate: -3deg;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wobble-group:hover .wobble-target {
+    animation: wobble 700ms ease-in-out 1;
+  }
+}
+
+/* Reduced motion: no animation or movement anywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

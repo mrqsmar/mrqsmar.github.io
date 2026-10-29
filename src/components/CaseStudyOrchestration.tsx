@@ -1,22 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-/* ------------------------------------------------------------------ */
-/*  Reusable scroll-reveal wrapper                                     */
-/* ------------------------------------------------------------------ */
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -162,17 +144,15 @@ export default function CaseStudyOrchestration() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-20">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-emerald-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -280,11 +260,9 @@ export default function CaseStudyOrchestration() {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {pillars.map((pillar, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={pillar.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className={`${pillar.bg} border ${pillar.border} rounded-xl p-5`}
                 >
                   <div className="flex items-center gap-3 mb-4">
@@ -301,7 +279,7 @@ export default function CaseStudyOrchestration() {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>

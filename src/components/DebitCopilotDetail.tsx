@@ -1,19 +1,4 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
-
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const [ref, inView] = useInView()
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { Reveal } from './ui'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -166,17 +151,15 @@ export default function DebitCopilotDetail() {
         <Reveal>
           <div className="grid sm:grid-cols-3 gap-4 mb-12">
             {metrics.map((m, i) => (
-              <motion.div
+              <Reveal
+                index={i}
                 key={m.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="bg-navy-800 border border-navy-600 rounded-xl p-6 text-center"
               >
                 <span className="block text-2xl md:text-3xl font-bold text-teal-400">{m.value}</span>
                 <span className="block text-sm font-medium text-white mt-1">{m.label}</span>
                 <span className="block text-xs text-slate-500 mt-1">{m.sub}</span>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </Reveal>
@@ -206,17 +189,15 @@ export default function DebitCopilotDetail() {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {problemPoints.map((p, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={p.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <div className="text-2xl mb-3">{p.icon}</div>
                   <h3 className="text-sm font-bold text-white mb-2">{p.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{p.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -233,11 +214,9 @@ export default function DebitCopilotDetail() {
             <div className="relative pl-8 space-y-6">
               <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-teal-500/60 to-teal-500/10" />
               {workflow.map((s, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={s.step}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
                   className="relative"
                 >
                   <div className="absolute -left-8 top-0.5 w-[22px] h-[22px] rounded-full bg-navy-800 border-2 border-teal-500/60 flex items-center justify-center">
@@ -245,7 +224,7 @@ export default function DebitCopilotDetail() {
                   </div>
                   <p className="text-sm font-semibold text-white mb-1">{s.label}</p>
                   <p className="text-sm text-slate-400 leading-relaxed">{s.detail}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -289,16 +268,14 @@ export default function DebitCopilotDetail() {
             <SectionTitle>Product decisions</SectionTitle>
             <div className="grid sm:grid-cols-2 gap-4">
               {decisions.map((d, i) => (
-                <motion.div
+                <Reveal
+                  index={i}
                   key={d.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
                   className="bg-navy-800 border border-navy-600 rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-teal-400 mb-2">{d.title}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{d.body}</p>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
             <p className="text-sm text-slate-400 mt-6 leading-relaxed">
