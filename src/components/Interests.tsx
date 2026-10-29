@@ -6,7 +6,7 @@ const interests = [
     title: 'Car research',
     desc: 'Deep dives into specs, performance data and market trends across the automotive world.',
     photo: '/assets/interest-cars.jpg',
-    alt: 'A car I researched',
+    alt: 'A silver Genesis Electrified G80 sedan parked on a residential street',
     tint: 'bg-fintech-soft',
   },
   {
