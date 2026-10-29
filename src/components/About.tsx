@@ -1,72 +1,47 @@
-import { motion } from 'framer-motion'
-import { useInView } from './useInView'
+import { educationData } from '../data/education'
+import { MediaSlot, Reveal, Section } from './ui'
 
-const highlights = [
-  { value: '$1M', label: 'Weekly Revenue Recovery', color: 'text-emerald-400', hoverBorder: 'hover:border-emerald-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(16,185,129,0.15)]' },
-  { value: 'LLM', label: 'AI Assistant Shipped', color: 'text-violet-400', hoverBorder: 'hover:border-violet-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(139,92,246,0.15)]' },
-  { value: '24', label: 'Age as Manager', color: 'text-amber-400', hoverBorder: 'hover:border-amber-500', hoverShadow: 'hover:shadow-[0_0_24px_rgba(245,158,11,0.15)]' },
-]
+// Replace with your own About paragraph.
+const ABOUT_PARAGRAPH =
+  "I'm a Product Manager on the Payments team at Varo Bank, where I own Debit Card, Debit & Credit Spend and Remote Check Deposit, and partner with our Decagon team on AI. Before Varo I was a PM at Visa, growing merchant revenue recovery from $500/week to $1M/week and shipping an LLM banking assistant to production. I like working where machine learning, payments infrastructure and AI meet, and I think the best PMs understand the technology that powers their products."
 
 export default function About() {
-  const [ref, inView] = useInView()
-
   return (
-    <section id="about" className="py-24">
-      <div className="max-w-[1100px] mx-auto px-6" ref={ref}>
-        <h2 className="text-3xl font-bold text-white text-center mb-14 section-title-bar">
-          About Me
-        </h2>
+    <Section id="about" tone="base" eyebrow="04 · About" title="A bit about me">
+      <div className="grid gap-s5 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-s6 items-start">
+        <Reveal className="relative max-w-[420px] w-full">
+          <div aria-hidden="true" className="absolute inset-0 translate-x-s3 translate-y-s3 rounded-card bg-accent" />
+          <MediaSlot
+            src="/assets/me-about.jpg"
+            alt="Marques Mar"
+            placeholder="Photo coming soon"
+            tint="bg-sunken"
+            className="relative aspect-[4/5] rounded-card border-[3px] border-ink"
+          />
+        </Reveal>
 
-        <div className="grid md:grid-cols-[1fr_280px] gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            <p className="text-slate-400 leading-relaxed">
-              I'm a Product Manager on the Payments team at{' '}
-              <strong className="text-white">Varo Bank</strong>, where I own{' '}
-              <strong className="text-white">Debit Card, Debit &amp; Credit Spend, and Remote Check Deposit</strong>,
-              and partner with our Decagon team on AI. Before Varo, I was a PM at{' '}
-              <strong className="text-white">Visa</strong>. I sit at the intersection of{' '}
-              <strong className="text-white">Machine Learning, Payments Infrastructure, and AI</strong>.
-              I specialize in translating complex ML capabilities into products that drive measurable
-              business impact — from optimizing payment routing decisions across VisaNet to shipping
-              conversational AI assistants to production.
-            </p>
-            <p className="text-slate-400 leading-relaxed">
-              With hands-on experience across the full product lifecycle — from discovery and data
-              analysis to API design and go-to-market — I bring a technical depth that enables me to
-              partner closely with engineering and data science teams. I thrive in high-stakes fintech
-              environments where precision, scale, and speed matter.
-            </p>
-            <p className="text-slate-400 leading-relaxed">
-              At 24, I've already mentored fellow APMs and interns, grown merchant revenue recovery
-              from <strong className="text-white">$500/week to $1M/week</strong>, and shipped an
-              LLM-powered banking assistant to production. I'm driven by a simple belief: the best PMs
-              don't just manage products — they deeply understand the technology that powers them.
-            </p>
-          </motion.div>
+        <Reveal delay={0.1}>
+          <p className="font-display text-20 md:text-28 text-ink [font-variation-settings:'SOFT'_50]">{ABOUT_PARAGRAPH}</p>
 
-          <div className="flex md:flex-col gap-4">
-            {highlights.map((h, i) => (
-              <motion.div
-                key={h.label}
-                initial={{ opacity: 0, y: 32 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 * i }}
-                className={`flex-1 bg-navy-700 border border-navy-600 rounded-xl p-6 text-center ${h.hoverBorder} ${h.hoverShadow} transition-all`}
-              >
-                <span className={`block text-[1.75rem] font-bold ${h.color} mb-1`}>
-                  {h.value}
-                </span>
-                <span className="text-xs text-slate-500 uppercase tracking-wider">{h.label}</span>
-              </motion.div>
-            ))}
+          <div className="mt-s5 pt-s4 border-t border-line">
+            <p className="text-14 font-semibold uppercase tracking-[0.14em] text-subtle mb-s3">Education</p>
+            <ul className="grid gap-s3 sm:grid-cols-2">
+              {educationData.map((edu) => (
+                <li key={edu.school} className="flex items-start gap-s3">
+                  {edu.logo && (
+                    <img src={edu.logo} alt="" className="h-12 w-12 shrink-0 rounded-[8px] border border-line bg-[#ffffff] object-contain p-s1" />
+                  )}
+                  <div>
+                    <p className="text-16 font-semibold text-ink">{edu.school}</p>
+                    <p className="text-14 text-muted">{edu.degree}</p>
+                    <p className="text-14 text-subtle">{edu.graduated.replace('Graduated: ', '')}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </Reveal>
       </div>
-    </section>
+    </Section>
   )
 }

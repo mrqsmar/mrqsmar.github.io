@@ -12,6 +12,7 @@
 :root {
   /* ── Color: neutrals ─────────────────────────────────────────── */
   --color-bg: #faf7f2;              /* warm off-white page */
+  --color-bg-tint: #fcefd4;         /* marigold-tinted band: muted text 6.3:1 */
   --color-surface: #ffffff;         /* cards */
   --color-surface-sunken: #f2ece2;  /* wells, inset panels */
   --color-border: #e5ddd0;
@@ -94,10 +95,13 @@
 /* ── Dark set ─────────────────────────────────────────────────────
  * Applied automatically from the OS preference, or forced with
  * <html data-theme="dark">. <html data-theme="light"> opts out.
+ * .theme-dark applies the same set to one section (e.g. a dark band
+ * in an otherwise light page).
  */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --color-bg: #15120f;
+    --color-bg-tint: #241d10;
     --color-surface: #211d19;
     --color-surface-sunken: #1a1714;
     --color-border: #3a332c;
@@ -137,8 +141,10 @@
   }
 }
 
-:root[data-theme='dark'] {
+:root[data-theme='dark'],
+.theme-dark {
   --color-bg: #15120f;
+  --color-bg-tint: #241d10;
   --color-surface: #211d19;
   --color-surface-sunken: #1a1714;
   --color-border: #3a332c;
@@ -175,4 +181,19 @@
   --shadow-2: 0 4px 12px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.45);
 
   color-scheme: dark;
+}
+
+/* A dark band on a page that is already dark sits one step deeper. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-dark {
+    --color-bg: #0d0b09;
+    --color-surface: #1a1714;
+    --color-surface-sunken: #141210;
+  }
+}
+
+:root[data-theme='dark'] .theme-dark {
+  --color-bg: #0d0b09;
+  --color-surface: #1a1714;
+  --color-surface-sunken: #141210;
 }

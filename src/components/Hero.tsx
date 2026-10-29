@@ -63,7 +63,7 @@ export default function Hero() {
 
             <motion.div {...fadeUp(0.4)} className="flex flex-wrap gap-s3 mb-s5">
               <a
-                href="#case-studies"
+                href="#work"
                 className="inline-flex items-center rounded-pill bg-accent text-accent-on px-s4 py-s3 text-16 font-semibold leading-none shadow-1 hover:bg-accent-hover hover:shadow-2 hover:-translate-y-0.5 transition-all"
               >
                 View case studies

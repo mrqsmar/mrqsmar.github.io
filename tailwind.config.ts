@@ -34,6 +34,7 @@ const config: Config = {
       colors: {
         // Semantic names: prefer these in new code.
         bg: tok('--color-bg'),
+        tint: tok('--color-bg-tint'),
         surface: tok('--color-surface'),
         sunken: tok('--color-surface-sunken'),
         line: tok('--color-border'),

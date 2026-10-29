@@ -1,16 +1,54 @@
 import { useState, useEffect } from 'react'
 
-const links = ['About', 'Experience', 'Education', 'Case Studies', 'Products I Built', 'Skills', 'Contact']
+// Each nav item highlights while any of its sections is in view.
+const links = [
+  { label: 'Work', id: 'work', sections: ['work', 'experience'], subPath: '/case-studies/' },
+  { label: 'Projects', id: 'projects', sections: ['projects'], subPath: '/projects/' },
+  { label: 'About', id: 'about', sections: ['about', 'interests'] },
+  { label: 'Contact', id: 'contact', sections: ['contact'] },
+]
+
+function useActiveSection(enabled: boolean) {
+  const [active, setActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!enabled) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        }
+      },
+      // A section is active while it crosses the middle of the viewport.
+      { rootMargin: '-45% 0px -50% 0px' }
+    )
+    const sections = document.querySelectorAll('[data-section]')
+    sections.forEach((s) => observer.observe(s))
+    const onScroll = () => {
+      if (window.scrollY < 200) setActive(null)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [enabled])
+
+  return active
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const isSubPage = window.location.pathname !== '/'
+  const path = window.location.pathname
+  const isSubPage = path !== '/'
+  const activeSection = useActiveSection(!isSubPage)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -30,15 +68,16 @@ export default function Nav() {
     }
   }
 
+  const isActive = (l: (typeof links)[number]) =>
+    isSubPage ? !!l.subPath && path.startsWith(l.subPath) : !!activeSection && l.sections.includes(activeSection)
+
   return (
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-bg border-b border-line py-3'
-          : 'bg-transparent py-4'
+        scrolled || open ? 'bg-bg/80 backdrop-blur-md border-b border-line/70 py-s2' : 'bg-transparent border-b border-transparent py-s3'
       }`}
     >
-      <div className="max-w-[1100px] mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-s3 sm:px-s4 flex items-center justify-between">
         <a
           href="/"
           onClick={(e) => navigateHome(e, isSubPage ? undefined : 'hero')}
@@ -49,9 +88,10 @@ export default function Nav() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex flex-col gap-[5px] p-1"
+          className="md:hidden flex flex-col gap-[5px] p-s2"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
           {[0, 1, 2].map((i) => (
             <span
@@ -67,23 +107,25 @@ export default function Nav() {
 
         {/* Links */}
         <ul
-          className={`md:flex md:gap-8 ${
+          className={`md:flex md:items-center md:gap-s1 ${
             open
-              ? 'flex flex-col absolute top-full left-0 right-0 bg-bg border-b border-line shadow-1 py-2'
+              ? 'flex flex-col gap-s1 absolute top-full left-0 right-0 bg-bg border-b border-line shadow-1 p-s3'
               : 'hidden'
           }`}
         >
-          {links.map((label) => {
-            const id = label.toLowerCase().replace(/\s+/g, '-')
-            const href = isSubPage ? `/#${id}` : `#${id}`
+          {links.map((l) => {
+            const active = isActive(l)
             return (
-              <li key={id}>
+              <li key={l.id}>
                 <a
-                  href={href}
-                  onClick={(e) => navigateHome(e, id)}
-                  className="block text-sm font-medium text-muted hover:text-ink transition-colors md:py-0 py-3.5 px-6 md:px-0 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all hover:after:w-full"
+                  href={isSubPage ? `/#${l.id}` : `#${l.id}`}
+                  onClick={(e) => navigateHome(e, l.id)}
+                  aria-current={active ? 'location' : undefined}
+                  className={`block rounded-pill px-s3 py-s2 text-16 font-medium transition-colors ${
+                    active ? 'bg-accent2/50 text-ink font-semibold' : 'text-muted hover:text-ink hover:bg-sunken'
+                  }`}
                 >
-                  {label}
+                  {l.label}
                 </a>
               </li>
             )

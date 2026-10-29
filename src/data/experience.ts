@@ -5,6 +5,7 @@ export interface ExperienceRole {
   organization?: string
   seed?: string
   dates: string
+  // Ordered by importance: the site shows the first three.
   bullets: string[]
   skills: string[]
 }
@@ -18,8 +19,8 @@ export const experienceData: ExperienceRole[] = [
     bullets: [
       'Building External Debit Instant Transfers from 0→1, owning product strategy, pricing, and go-to-market execution for a new monetization offering projected to generate $250K in monthly revenue',
       'Building Credit Card Sweepstakes, a MarTech-driven engagement campaign, generating 20% growth in credit card spend through spend-based incentives and cross-functional execution',
-      'Led Savings Rate launch impacting 100% of deposit customers, authoring 100+ UAT cases with 0 production defects',
       'Building an AI-powered Credit Building experience using Claude and Decagon, driving 8% growth in credit card spend and 12% increase in customer engagement through personalized financial education',
+      'Led Savings Rate launch impacting 100% of deposit customers, authoring 100+ UAT cases with 0 production defects',
     ],
     skills: ['0->1', 'Pricing & GTM', 'Conversational AI'],
   },
