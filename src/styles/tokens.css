@@ -1,0 +1,178 @@
+/*
+ * Design tokens: the single source of truth for color, type, spacing,
+ * radius and elevation. Components consume these directly (var(--…)) or
+ * through the Tailwind aliases defined in tailwind.config.ts.
+ *
+ * Every text/background pairing below has been checked against WCAG AA
+ * (≥ 4.5:1 for body text) in both the light and dark sets.
+ */
+
+/* Fonts (Fraunces + DM Sans) are loaded from index.html. */
+
+:root {
+  /* ── Color: neutrals ─────────────────────────────────────────── */
+  --color-bg: #faf7f2;              /* warm off-white page */
+  --color-surface: #ffffff;         /* cards */
+  --color-surface-sunken: #f2ece2;  /* wells, inset panels */
+  --color-border: #e5ddd0;
+  --color-border-strong: #cfc4b3;
+
+  --color-text: #1c1916;            /* 16.4:1 on bg */
+  --color-text-strong: #1c1916;
+  --color-text-muted: #5e564c;      /* 6.8:1 on bg */
+  --color-text-subtle: #6f665b;     /* 5.3:1 on bg */
+
+  /* ── Color: accents ──────────────────────────────────────────── */
+  --color-accent: #c7361d;          /* vermilion: 5.0:1 on bg, white text on it 5.3:1 */
+  --color-accent-hover: #a82c16;
+  --color-on-accent: #ffffff;
+  --color-accent-2: #ffc53d;        /* marigold: shapes, highlights, chip fills */
+  --color-accent-2-ink: #8a5a00;    /* marigold as text: 5.6:1 on bg */
+  --color-on-accent-2: #1c1916;     /* 11.1:1 */
+
+  --color-danger: #b42318;          /* 6.2:1 on bg */
+
+  /* ── Color: categories ───────────────────────────────────────────
+   * base  = fills, dots, borders
+   * ink   = text (AA on bg, surface and soft)
+   * soft  = chip / tag background
+   */
+  --cat-payments: #1f8a55;          /* Payments / ML */
+  --cat-payments-ink: #11663f;
+  --cat-payments-soft: #e3f2e9;
+
+  --cat-ai: #3d5bd9;                /* AI */
+  --cat-ai-ink: #2f49b8;
+  --cat-ai-soft: #e6ebfb;
+
+  --cat-mobile: #c2328a;            /* Mobile */
+  --cat-mobile-ink: #a3266e;
+  --cat-mobile-soft: #f8e4ef;
+
+  --cat-fintech: #c97a00;           /* Fintech */
+  --cat-fintech-ink: #8a5200;
+  --cat-fintech-soft: #faebd2;
+
+  /* ── Type ────────────────────────────────────────────────────── */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --text-sm: 0.875rem;    /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-lg: 1.25rem;     /* 20 */
+  --text-xl: 1.75rem;     /* 28 */
+  --text-2xl: 2.5rem;     /* 40 */
+  --text-3xl: 4rem;       /* 64 */
+
+  --leading-sm: 1.45;
+  --leading-base: 1.6;
+  --leading-lg: 1.5;
+  --leading-xl: 1.25;
+  --leading-2xl: 1.1;
+  --leading-3xl: 1.0;
+
+  /* ── Spacing ─────────────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  /* ── Radius ──────────────────────────────────────────────────── */
+  --radius-card: 12px;
+  --radius-pill: 999px;
+
+  /* ── Elevation ───────────────────────────────────────────────── */
+  --shadow-1: 0 1px 2px rgb(28 25 22 / 0.06), 0 2px 8px rgb(28 25 22 / 0.06);
+  --shadow-2: 0 4px 12px rgb(28 25 22 / 0.08), 0 16px 40px rgb(28 25 22 / 0.10);
+
+  color-scheme: light;
+}
+
+/* ── Dark set ─────────────────────────────────────────────────────
+ * Applied automatically from the OS preference, or forced with
+ * <html data-theme="dark">. <html data-theme="light"> opts out.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #15120f;
+    --color-surface: #211d19;
+    --color-surface-sunken: #1a1714;
+    --color-border: #3a332c;
+    --color-border-strong: #544a40;
+
+    --color-text: #f3ede4;          /* 16.0:1 on bg */
+    --color-text-strong: #fffaf2;
+    --color-text-muted: #b3a99c;    /* 8.1:1 on bg, 7.2:1 on surface */
+    --color-text-subtle: #968c7f;   /* 5.1:1 on surface */
+
+    --color-accent: #ff7a5c;        /* 7.3:1 on bg */
+    --color-accent-hover: #ff9478;
+    --color-on-accent: #15120f;     /* 7.3:1 */
+    --color-accent-2: #ffc53d;
+    --color-accent-2-ink: #ffc53d;
+    --color-on-accent-2: #15120f;
+
+    --color-danger: #ff8a80;
+
+    --cat-payments: #3fbf7f;
+    --cat-payments-ink: #5fd49a;
+    --cat-payments-soft: #1a2a21;
+    --cat-ai: #7088f0;
+    --cat-ai-ink: #9db0ff;
+    --cat-ai-soft: #1e2238;
+    --cat-mobile: #e85aa8;
+    --cat-mobile-ink: #ff8cc8;
+    --cat-mobile-soft: #2e1c26;
+    --cat-fintech: #e09a2a;
+    --cat-fintech-ink: #f2b65a;
+    --cat-fintech-soft: #2d2416;
+
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.3);
+    --shadow-2: 0 4px 12px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.45);
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #15120f;
+  --color-surface: #211d19;
+  --color-surface-sunken: #1a1714;
+  --color-border: #3a332c;
+  --color-border-strong: #544a40;
+
+  --color-text: #f3ede4;
+  --color-text-strong: #fffaf2;
+  --color-text-muted: #b3a99c;
+  --color-text-subtle: #968c7f;
+
+  --color-accent: #ff7a5c;
+  --color-accent-hover: #ff9478;
+  --color-on-accent: #15120f;
+  --color-accent-2: #ffc53d;
+  --color-accent-2-ink: #ffc53d;
+  --color-on-accent-2: #15120f;
+
+  --color-danger: #ff8a80;
+
+  --cat-payments: #3fbf7f;
+  --cat-payments-ink: #5fd49a;
+  --cat-payments-soft: #1a2a21;
+  --cat-ai: #7088f0;
+  --cat-ai-ink: #9db0ff;
+  --cat-ai-soft: #1e2238;
+  --cat-mobile: #e85aa8;
+  --cat-mobile-ink: #ff8cc8;
+  --cat-mobile-soft: #2e1c26;
+  --cat-fintech: #e09a2a;
+  --cat-fintech-ink: #f2b65a;
+  --cat-fintech-soft: #2d2416;
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.3);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.45);
+
+  color-scheme: dark;
+}
