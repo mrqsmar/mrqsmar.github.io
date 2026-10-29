@@ -9,7 +9,7 @@ const fadeUp = (delay: number) => ({
 const proofPoints = [
   { lead: '$1M/week', rest: 'recovered', dot: 'bg-payments' },
   { lead: 'LLM assistant', rest: 'shipped to production', dot: 'bg-ai' },
-  { lead: '2 PMs', rest: 'managed', dot: 'bg-fintech' },
+  { lead: '4 PMs', rest: 'managed', dot: 'bg-fintech' },
 ]
 
 const COPILOT_PATH = '/projects/debit-copilot'
